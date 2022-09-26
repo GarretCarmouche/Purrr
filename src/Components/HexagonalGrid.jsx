@@ -19,10 +19,6 @@ const patterns = [
     id: "yellow",
     link: "https://www.bhphotovideo.com/images/images500x500/Savage_71_12_107_x_12yds_Background_129829.jpg",
   },
-  {
-    id: "test",
-    link: "/Assets/1003.png",
-  },
 ];
 
 const hexArr = (size) => {
@@ -51,7 +47,7 @@ const HexagonalGrid = ({ size }) => {
       <HexGrid
         width={1400}
         height={750}
-        viewBox="-50 -100 80 200"
+        viewBox="-50 -100 200 200"
         onClick={() => console.log("Clicked")}
       >
         <Layout
