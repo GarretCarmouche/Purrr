@@ -66,7 +66,7 @@ const HexagonalGrid = ({ size }) => {
               r={r}
               s={s}
               key={q + " " + r + " " + s}
-              pattern={patterns[1].id}
+              patt={patterns[1].id}
             />
           ))}
         </Layout>

@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Hexagon } from "react-hexgrid";
 
-const HexagonTile = ({ q, r, s, pattern }) => {
-  const { pattern, setPattern } = pattern ? useState(null) : useState(pattern);
+const HexagonTile = ({ q, r, s, patt }) => {
+  const { pattern, setPattern } = useState(patt);
 
   return (
     <>
