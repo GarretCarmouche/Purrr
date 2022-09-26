@@ -8,6 +8,7 @@ import {
   Path,
   Hex,
 } from "react-hexgrid";
+import HexagonTile from "./HexagonTile";
 
 const patterns = [
   {
@@ -50,7 +51,7 @@ const HexagonalGrid = ({ size }) => {
       <HexGrid
         width={1400}
         height={750}
-        viewBox="-100 -150 350 300"
+        viewBox="-50 -100 80 200"
         onClick={() => console.log("Clicked")}
       >
         <Layout
@@ -60,13 +61,12 @@ const HexagonalGrid = ({ size }) => {
           origin={{ x: 0, y: 0 }}
         >
           {hexArray.map(({ q, r, s }) => (
-            <Hexagon
+            <HexagonTile
               q={q}
               r={r}
               s={s}
               key={q + " " + r + " " + s}
-              onClick={() => console.log(q, r, s)}
-              fill={patterns[2].id}
+              pattern={patterns[1].id}
             />
           ))}
         </Layout>
