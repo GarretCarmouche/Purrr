@@ -18,6 +18,10 @@ const patterns = [
     id: "yellow",
     link: "https://www.bhphotovideo.com/images/images500x500/Savage_71_12_107_x_12yds_Background_129829.jpg",
   },
+  {
+    id: "test",
+    link: "/Assets/1003.png",
+  },
 ];
 
 const hexArr = (size) => {
@@ -43,15 +47,27 @@ const HexagonalGrid = ({ size }) => {
   const hexArray = hexArr(size);
   return (
     <>
-      <HexGrid width={1400} height={750} viewBox="-100 -150 350 300">
+      <HexGrid
+        width={1400}
+        height={750}
+        viewBox="-100 -150 350 300"
+        onClick={() => console.log("Clicked")}
+      >
         <Layout
-          size={{ x: 15, y: 15 }}
+          size={{ x: 10, y: 10 }}
           flat={true}
           spacing={1.05}
           origin={{ x: 0, y: 0 }}
         >
           {hexArray.map(({ q, r, s }) => (
-            <Hexagon q={q} r={r} s={s} key={q + " " + r + " " + s} />
+            <Hexagon
+              q={q}
+              r={r}
+              s={s}
+              key={q + " " + r + " " + s}
+              onClick={() => console.log(q, r, s)}
+              fill={patterns[2].id}
+            />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (

@@ -11,7 +11,7 @@ import "./App.css";
 import HexagonalGrid from "./Components/HexagonalGrid";
 
 function App() {
-  return <HexagonalGrid size={6} />;
+  return <HexagonalGrid size={3} />;
 }
 
 export default App;
