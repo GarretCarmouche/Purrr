@@ -1,4 +1,6 @@
 import React from "react";
+import '../startUpStyle.css'
+
 
 const StartUp = () => {
     const handleEasyClick = () =>{
@@ -24,19 +26,21 @@ const StartUp = () => {
     }
     return (
         <div>
-            <h1>Difficulty</h1>
-            <div className="Difficulty">
-                <input type="radio" name="Difficulty" value="Easy" onChange={handleEasyClick}/>Easy
-                <input type="radio" name="Difficulty" value="Medium" onChange={handleMediumClick}/>Medium
-                <input type="radio" name="Difficulty" value="Hard" onChange={handleHardClick}/>Hard
+            <div className="main">
+                <div className="Difficulty">
+                    <h1>Difficulty</h1>
+                    <input type="radio" name="Difficulty" value="Easy" onChange={handleEasyClick}/>Easy
+                    <input type="radio" name="Difficulty" value="Medium" onChange={handleMediumClick}/>Medium
+                    <input type="radio" name="Difficulty" value="Hard" onChange={handleHardClick}/>Hard
+                </div>
+                <div className="Size">
+                    <h1>Size</h1>
+                    <input type="radio" name="Size" value="Small" onChange={handleSmallClick}/>Small
+                    <input type="radio" name="Size" value="Regular" onChange={handleRegularClick}/>Regular
+                    <input type="radio" name="Size" value="Large" onChange={handleLargeClick}/>Large                       
+                </div>
+                <div className="Submit"><button type="button" id="submitBTN" onClick={handleSubmitClick}>Submit</button></div>
             </div>
-            <h2>Size</h2>
-            <div className="Size">
-                <input type="radio" name="Size" value="Small" onChange={handleSmallClick}/>Small
-                <input type="radio" name="Size" value="Regular" onChange={handleRegularClick}/>Regular
-                <input type="radio" name="Size" value="Large" onChange={handleLargeClick}/>Large                       
-            </div>
-            <div><button type="button" id="submitBTN" onClick={handleSubmitClick}>Submit</button></div>
         </div>
     )
 
