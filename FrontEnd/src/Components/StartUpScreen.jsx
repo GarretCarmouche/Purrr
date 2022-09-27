@@ -20,13 +20,19 @@ const StartUp = () => {
         console.log("hard selected")
     }
     return (
-        <div className="startUp">
-            <button onClick={handleEasyClick}>Easy</button>     
-            <button onClick={handleMediumClick}>Medium</button>                        
-            <button onClick={handleHardClick}>Hard</button>                        
-            <button onClick={handleSmallClick}>Small</button>                        
-            <button onClick={handleRegularClick}>Regular</button>                        
-            <button onClick={handleLargeClick}>Large</button>                        
+        <div>
+            <h1>Difficulty</h1>
+            <div className="Difficulty">
+                <input type="radio" name="Difficulty" value="Easy" onChange={handleEasyClick}/>Easy
+                <input type="radio" name="Difficulty" value="Medium" onChange={handleMediumClick}/>Medium
+                <input type="radio" name="Difficulty" value="Hard" onChange={handleHardClick}/>Hard
+            </div>
+            <h2>Size</h2>
+            <div className="Size">
+                <input type="radio" name="Size" value="Small" onChange={handleSmallClick}/>Small
+                <input type="radio" name="Size" value="Regular" onChange={handleRegularClick}/>Regular
+                <input type="radio" name="Size" value="Large" onChange={handleLargeClick}/>Large                       
+            </div>
         </div>
     )
 

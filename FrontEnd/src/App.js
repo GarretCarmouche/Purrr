@@ -15,16 +15,8 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 function App() {
   
   return (
-    <Router>
-      <Switch>
-        <Route path="/">
-          <StartUp/>
-        </Route>
-        <Route path="/Game">
-          <HexagonalGrid size={5} />
-        </Route>
-      </Switch>
-    </Router>
+  //<HexagonalGrid size={5} />,
+  <StartUp/>
   );
 }
 
