@@ -19,6 +19,9 @@ const StartUp = () => {
     const handleLargeClick = () =>{
         console.log("hard selected")
     }
+    const handleSubmitClick = () =>{
+        console.log("Submit selected")
+    }
     return (
         <div>
             <h1>Difficulty</h1>
@@ -33,6 +36,7 @@ const StartUp = () => {
                 <input type="radio" name="Size" value="Regular" onChange={handleRegularClick}/>Regular
                 <input type="radio" name="Size" value="Large" onChange={handleLargeClick}/>Large                       
             </div>
+            <div><button type="button" id="submitBTN" onClick={handleSubmitClick}>Submit</button></div>
         </div>
     )
 
