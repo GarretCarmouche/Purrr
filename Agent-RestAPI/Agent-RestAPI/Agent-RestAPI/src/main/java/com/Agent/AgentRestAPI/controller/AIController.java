@@ -1,5 +1,7 @@
 package com.Agent.AgentRestAPI.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,13 +22,31 @@ public class AIController
 
     }
 
+    /* 
     //Get http://localhost:8080/aicontroller
     @GetMapping
     public String[] getCurrentLocation()
     {
         return catAi.getCurrentLocation();
     }
+    */
 
+    //Get http://localhost:8080/aicontroller/getagentlocation
+    @GetMapping("/getagentlocation")
+    public Map<String, String> getAgentLocation()
+    {
+        return catAi.getAgentLocation();
+    }
+
+
+
+
+    //Get http://localhost:8080/aicontroller/test
+    @GetMapping("/test")
+    public Map<String, String> sayHello()
+    {
+        return catAi.sayHello();
+    }
 
 
     
