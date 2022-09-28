@@ -27,7 +27,7 @@ public String[] getCurrentLocation()
 }
 
 
-
+//set new location
 public boolean moveCat(String q,String r,String s)
 {
     cat.setQ(q);
