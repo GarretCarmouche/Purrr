@@ -1,4 +1,4 @@
-package com.Agent.AgentRestAPI;
+package com.Agent.AgentRestAPI.model;
 
 public class Agent 
 {
@@ -7,14 +7,14 @@ public class Agent
     String s;
 
 
-    Agent()
+    public Agent()
     {
         q="0";
         r="0";
         s="0";
     }
 
-    Agent(String q,String r,String s)
+    public Agent(String q,String r,String s)
     {
         this.q=q;
         this.r=r;
