@@ -1,19 +1,22 @@
 package com.Agent.AgentRestAPI.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.Agent.AgentRestAPI.model.Agent;
 import com.Agent.AgentRestAPI.model.Board;
-import com.Agent.AgentRestAPI.model.Wall;
+
 
 @Component
 public class AiLogic 
 {
     private Agent cat;
-    private HashMap<String,Agent> wallList = new HashMap<>();
+    private Agent wall;
+    private List<Agent> wallList = new ArrayList<>();
     private Board gameBoard= null;// Just temporary until someone works on board class
 
 
@@ -35,8 +38,9 @@ public Map<String, String> sayHello() {
 }
 
 
-public Map<String, String> getAgentLocation() {
+public Map<String, String> getCatLocation() {
     HashMap<String, String> map = new HashMap<>();
+    map.put("id", cat.getID());
     map.put("q", cat.getQ());
     map.put("r", cat.getR());
     map.put("s", cat.getS());
@@ -45,26 +49,17 @@ public Map<String, String> getAgentLocation() {
 
 
 //Add wall to list of walls
-public void addWall(String key,Agent wall)
+public  void addWall(Agent wall)
 {
     
-    wallList.put(key,wall);
+    wallList.add(wall);
 
 }
-
-
-
-public Map<String,Agent> getAllWalls()
-{
-    return wallList;
-
-}
-
 
 //set new location
-public void moveAgent( Agent newLocation)
+public void moveCat(Agent newLocation)
 {
-    cat = newLocation;
+    cat=newLocation;
 
 }
 

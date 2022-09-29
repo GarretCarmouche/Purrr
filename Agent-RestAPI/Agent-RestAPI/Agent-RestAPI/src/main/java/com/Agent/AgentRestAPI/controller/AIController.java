@@ -19,7 +19,7 @@ import com.Agent.AgentRestAPI.repository.AiLogic;
 @RequestMapping("/aicontroller")
 public class AIController 
 {
-    private final AiLogic catAi;
+    private AiLogic catAi;
 
     //This will create and instance of our agent
     public AIController(AiLogic catAi)
@@ -37,23 +37,6 @@ public class AIController
     }
     */
 
-    //Not tested, this should allow us to pass json of our cat at a new location
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/newlocation")
-    public void moveAgent(@RequestBody Agent newAgent)
-    {
-        catAi.moveAgent(newAgent);
-    }
-    //Get http://localhost:8080/aicontroller/getagentlocation
-    @GetMapping("/getagentlocation")
-    public Map<String, String> getAgentLocation()
-    {
-        return catAi.getAgentLocation();
-    }
-
-
-
-
     //Get http://localhost:8080/aicontroller/test
     @GetMapping("/test")
     public Map<String, String> sayHello()
@@ -61,6 +44,38 @@ public class AIController
         return catAi.sayHello();
     }
 
+        //Get http://localhost:8080/aicontroller/getagentlocation
+    @GetMapping("/getagentlocation")
+    public Map<String, String> getCatLocation()
+    {
+        return catAi.getCatLocation();
+    }
+
+
+
+
+    //Not tested, this should allow us to pass json of our cat at a new location
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping("/addwall")
+    public void addWall(@RequestBody Agent newWall)
+    {
+        catAi.addWall(newWall);
+    }
+
+
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping("/movecat")
+    public void moveCat(@RequestBody Agent newCatLocation)
+    {
+        catAi.moveCat(newCatLocation);
+    }
+    
+
+
+
+
+    
 
     
     
