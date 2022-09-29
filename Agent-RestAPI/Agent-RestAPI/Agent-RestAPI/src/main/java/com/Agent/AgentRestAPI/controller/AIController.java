@@ -1,10 +1,16 @@
 package com.Agent.AgentRestAPI.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Agent.AgentRestAPI.model.Agent;
 import com.Agent.AgentRestAPI.repository.AiLogic;
 
 @RestController
@@ -21,14 +27,19 @@ public class AIController
     }
 
     //Get http://localhost:8080/aicontroller
-    @GetMapping
+    @GetMapping("/getcurrentlocation")
     public String[] getCurrentLocation()
     {
         return catAi.getCurrentLocation();
     }
 
-
-
+    //Not tested, this should allow us to pass json of our cat at a new location
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping("/newlocation")
+    public void moveAgent(@RequestBody Agent newAgent)
+    {
+        catAi.moveAgent(newAgent);
+    }
     
     
 }

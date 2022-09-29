@@ -28,12 +28,9 @@ public String[] getCurrentLocation()
 
 
 //set new location
-public boolean moveCat(String q,String r,String s)
+public void moveAgent( Agent newLocation)
 {
-    cat.setQ(q);
-    cat.setR(r);
-    cat.setS(s);
-    return true;
+    cat = newLocation;
 
 }
 
