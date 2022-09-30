@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Component;
-
 import com.Agent.AgentRestAPI.model.Agent;
-import com.Agent.AgentRestAPI.model.Board;
+
 
 
 @Component
@@ -17,14 +15,26 @@ public class AiLogic
     private Agent cat;
     //private Agent wall;
     private List<Agent> wallList = new ArrayList<>();
-    private Board gameBoard= null;// Just temporary until someone works on board class
+    private int boardSize;
+    
 
 
 
 public AiLogic()
 {  
     cat = new Agent();
-    gameBoard =new Board();
+    boardSize=0;
+}
+
+public void setBoardSize(int size)
+{
+    boardSize=size;
+    System.out.println(getBoardSize());
+}
+
+public int getBoardSize()
+{
+    return boardSize;
 }
 
 
@@ -37,7 +47,7 @@ public Map<String, String> sayHello() {
     return map;
 }
 
-
+//Returns json of cats location
 public Map<String, Object> getCatLocation() {
     HashMap<String, Object> map = new HashMap<>();
     map.put("id", cat.getID());
@@ -51,20 +61,24 @@ public Map<String, Object> getCatLocation() {
 //Add wall to list of walls
 public  void addWall(Agent wall)
 {
-    
+    System.out.println(wall.getQ() + wall.getR() + wall.getS());
     wallList.add(wall);
 
 }
 
 //set new location
 public void moveCat(Agent newLocation)
-{
+{   System.out.println(newLocation.getQ()+newLocation.getR()+newLocation.getS());
     cat=newLocation;
 }
 
+
 public boolean isCellBlocked(Agent location){
 
+        return false;
 }
+
+
 
 public char getNearestDistanceAxis(Agent currentLocation){
     if(Math.abs(currentLocation.getQ()) > Math.abs(currentLocation.getR()) && Math.abs(currentLocation.getQ()) > Math.abs(currentLocation.getS())){
