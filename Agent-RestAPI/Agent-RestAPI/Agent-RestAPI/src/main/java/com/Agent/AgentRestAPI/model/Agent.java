@@ -2,19 +2,19 @@ package com.Agent.AgentRestAPI.model;
 
 public class Agent 
 {   String id;
-    String q;
-    String r;
-    String s;
+    int q;
+    int r;
+    int s;
 
 
     public Agent()
     {   id="1";
-        q="0";
-        r="0";
-        s="0";
+        q=0;
+        r=0;
+        s=0;
     }
 
-    public Agent(String id,String q,String r,String s)
+    public Agent(String id,int q,int r,int s)
     {   this.id=id;
         this.q=q;
         this.r=r;
@@ -25,17 +25,17 @@ public class Agent
     {
         return id;
     }
-    public String getQ()
+    public int getQ()
     {
         return q;
     }
 
-    public String getR()
+    public int getR()
     {
         return r;
     }
 
-    public String getS()
+    public int getS()
     {
         return s;
     }
@@ -44,17 +44,17 @@ public class Agent
     {
         this.id=id;
     }
-    public void setQ(String q)
+    public void setQ(int q)
     {
         this.q=q;
     }
 
-    public void setR(String r)
+    public void setR(int r)
     {
         this.r=r;
     }
 
-    public void setS(String s)
+    public void setS(int s)
     {
         this.s=s;
     }

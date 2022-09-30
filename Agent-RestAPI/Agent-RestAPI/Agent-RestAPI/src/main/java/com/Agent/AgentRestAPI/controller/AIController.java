@@ -46,7 +46,7 @@ public class AIController
 
         //Get http://localhost:8080/aicontroller/getagentlocation
     @GetMapping("/getagentlocation")
-    public Map<String, String> getCatLocation()
+    public Map<String, Object> getCatLocation()
     {
         return catAi.getCatLocation();
     }
