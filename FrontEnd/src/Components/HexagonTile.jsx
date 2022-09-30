@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Hexagon } from "react-hexgrid";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBlack } from "../store/girdSlice";
 
 const HexagonTile = ({ q, r, s }) => {
   const tile = useSelector((state) =>
-    state.grid.filter(
+    state.grid.grid.filter(
       (gridEl) => gridEl.q === q && gridEl.r === r && gridEl.s === s
     )
   );

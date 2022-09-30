@@ -24,8 +24,16 @@ const patterns = [
 
 //Need to adjust viewbox based on the size of the board
 
+//Large: 7
+//Regular and Small 10
+const setSize = (size) => {
+  if (size === 7) return { x: 7, y: 7 };
+  return { x: 10, y: 10 };
+};
+
 const HexagonalGrid = () => {
-  const hexArray = useSelector((state) => state.grid);
+  const hexArray = useSelector((state) => state.grid).grid;
+  const size = useSelector((state) => state.grid).size;
   return (
     <>
       <HexGrid
@@ -35,7 +43,7 @@ const HexagonalGrid = () => {
         onClick={() => console.log("Clicked")}
       >
         <Layout
-          size={{ x: 10, y: 10 }}
+          size={setSize(size)}
           flat={true}
           spacing={1.05}
           origin={{ x: 0, y: 0 }}
