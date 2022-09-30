@@ -9,6 +9,7 @@ import {
   Hex,
 } from "react-hexgrid";
 import HexagonTile from "./HexagonTile";
+import { useSelector } from "react-redux";
 
 const patterns = [
   {
@@ -21,27 +22,10 @@ const patterns = [
   },
 ];
 
-const hexArr = (size) => {
-  let hexCordsArr = [];
-
-  for (let i = size * -1; i <= size; i++) {
-    let x = i <= 0 ? size : -1 * size;
-    let y = -1 * (x + i);
-
-    let start = x > y ? y : x;
-    let end = x > y ? x : y;
-
-    for (let j = start, k = end; j <= end; j++, k--) {
-      hexCordsArr.push({ q: i, r: j, s: k });
-    }
-  }
-  return hexCordsArr;
-};
-
 //Need to adjust viewbox based on the size of the board
 
-const HexagonalGrid = ({ size }) => {
-  const hexArray = hexArr(size);
+const HexagonalGrid = () => {
+  const hexArray = useSelector((state) => state.grid);
   return (
     <>
       <HexGrid
@@ -57,13 +41,7 @@ const HexagonalGrid = ({ size }) => {
           origin={{ x: 0, y: 0 }}
         >
           {hexArray.map(({ q, r, s }) => (
-            <HexagonTile
-              q={q}
-              r={r}
-              s={s}
-              key={q + " " + r + " " + s}
-              patt={patterns[1].id}
-            />
+            <HexagonTile q={q} r={r} s={s} key={q + " " + r + " " + s} />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (
