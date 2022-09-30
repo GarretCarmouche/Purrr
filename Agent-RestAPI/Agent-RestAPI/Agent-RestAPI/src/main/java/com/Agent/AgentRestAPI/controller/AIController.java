@@ -55,6 +55,7 @@ public class AIController
 
 
     //Not tested, this should allow us to pass json of our cat at a new location
+    //POST http://localhost:8080/aicontroller/addwall
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/addwall")
     public void addWall(@RequestBody Agent newWall)
