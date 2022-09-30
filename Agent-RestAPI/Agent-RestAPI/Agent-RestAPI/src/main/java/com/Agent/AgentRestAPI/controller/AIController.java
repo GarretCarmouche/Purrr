@@ -2,7 +2,6 @@ package com.Agent.AgentRestAPI.controller;
 
 import org.springframework.http.HttpStatus;
 import java.util.Map;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,15 +27,7 @@ public class AIController
 
     }
 
-    /* 
-    //Get http://localhost:8080/aicontroller
-    @GetMapping("/getcurrentlocation")
-    public String[] getCurrentLocation()
-    {
-        return catAi.getCurrentLocation();
-    }
-    */
-
+    //Test API call
     //Get http://localhost:8080/aicontroller/test
     @GetMapping("/test")
     public Map<String, String> sayHello()
@@ -44,40 +35,43 @@ public class AIController
         return catAi.sayHello();
     }
 
-        //Get http://localhost:8080/aicontroller/getagentlocation
+    //Test API call
+    //Get http://localhost:8080/aicontroller/getagentlocation
     @GetMapping("/getagentlocation")
     public Map<String, Object> getCatLocation()
     {
         return catAi.getCatLocation();
     }
 
-
-
-
-    //Not tested, this should allow us to pass json of our cat at a new location
-    //POST http://localhost:8080/aicontroller/addwall
+    // GET http://localhost:8080/aicontroller/movecat
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/addwall")
-    public void addWall(@RequestBody Agent newWall)
+    @GetMapping("/movecat")
+    public void moveCat(@RequestParam int q, int r, int s)
     {
-        catAi.addWall(newWall);
-    }
-
-
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/movecat")
-    public void moveCat(@RequestBody Agent newCatLocation)
-    {
+        Agent newCatLocation = new Agent();
+        newCatLocation.setQ(q);
+        newCatLocation.setR(r);
+        newCatLocation.setS(s);
         catAi.moveCat(newCatLocation);
     }
     
+    // GET http://localhost:8080/aicontroller/addwall
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @GetMapping("/addwall")
+    public void addWall(@RequestParam int q, int r, int s) 
+    {
+        Agent newAg = new Agent();
+        newAg.setQ(q);
+        newAg.setR(r);
+        newAg.setS(s);
+        catAi.addWall(newAg);
+    }
 
-
-
-
-    
-
-    
-    
+    // GET http://localhost:8080/aicontroller/setboardsize
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @GetMapping("/setboardsize")
+    public void setBoardSize(@RequestParam int size) 
+    { 
+        catAi.setBoardSize(size);
+    }
 }
