@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
 const hexArr = (size) => {
   let hexCordsArr = [];
@@ -18,6 +18,28 @@ const hexArr = (size) => {
 };
 
 const initialState = { grid: hexArr(3), size: 3 };
+
+export const setSizeRequest = createAsyncThunk(
+  "setSizeRequest",
+  async (size) => {
+    const getReq = `http://localhost:8080/aicontroller/setboardsize?size=${size}`;
+    const response = await fetch(getReq);
+  }
+);
+
+export const addWallRequest = createAsyncThunk(
+  "addWallRequest",
+  async (wallCords) => {
+    const getReq = `http://localhost:8080/aicontroller/addwall?q=${wallCords.q}&r=${wallCords.r}&s=${wallCords.s}`;
+    const response = await fetch(getReq);
+  }
+);
+
+export const getCatRequest = createAsyncThunk("getCatRequest", async () => {
+  const getReq = "http://localhost:8080/aicontroller/getagentlocation";
+  const response = await fetch(getReq);
+  return response.json();
+});
 
 export const gridSlice = createSlice({
   name: "gird",

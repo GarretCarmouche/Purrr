@@ -9,7 +9,9 @@ import {
   Hex,
 } from "react-hexgrid";
 import HexagonTile from "./HexagonTile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setSizeRequest, getCatRequest, changeCat } from "../store/girdSlice";
 
 const patterns = [
   {
@@ -32,15 +34,30 @@ const setSize = (size) => {
 };
 
 const HexagonalGrid = () => {
+  const dispatch = useDispatch();
   const hexArray = useSelector((state) => state.grid).grid;
   const size = useSelector((state) => state.grid).size;
+
+  useEffect(() => {
+    const initRequest = async () => {
+      await dispatch(setSizeRequest(size)).unwrap();
+    };
+
+    initRequest();
+  }, []);
+
+  const handleCatMove = async () => {
+    let val = await dispatch(getCatRequest()).unwrap();
+    dispatch(changeCat(val));
+  };
+
   return (
     <>
       <HexGrid
         width={1400}
         height={750}
         viewBox="-50 -100 200 200"
-        onClick={() => console.log("Clicked")}
+        onClick={() => handleCatMove()}
       >
         <Layout
           size={setSize(size)}
