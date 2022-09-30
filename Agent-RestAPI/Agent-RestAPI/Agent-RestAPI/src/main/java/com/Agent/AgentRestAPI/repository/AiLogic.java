@@ -15,7 +15,7 @@ import com.Agent.AgentRestAPI.model.Board;
 public class AiLogic 
 {
     private Agent cat;
-    private Agent wall;
+    //private Agent wall;
     private List<Agent> wallList = new ArrayList<>();
     private Board gameBoard= null;// Just temporary until someone works on board class
 
@@ -38,8 +38,8 @@ public Map<String, String> sayHello() {
 }
 
 
-public Map<String, String> getCatLocation() {
-    HashMap<String, String> map = new HashMap<>();
+public Map<String, Object> getCatLocation() {
+    HashMap<String, Object> map = new HashMap<>();
     map.put("id", cat.getID());
     map.put("q", cat.getQ());
     map.put("r", cat.getR());
@@ -60,7 +60,32 @@ public  void addWall(Agent wall)
 public void moveCat(Agent newLocation)
 {
     cat=newLocation;
+}
 
+public boolean isCellBlocked(Agent location){
+
+}
+
+public char getNearestDistanceAxis(Agent currentLocation){
+    if(Math.abs(currentLocation.getQ()) > Math.abs(currentLocation.getR()) && Math.abs(currentLocation.getQ()) > Math.abs(currentLocation.getS())){
+        return 'q';
+    }else if(currentLocation.getR() > currentLocation.getS()){
+        return 'r';
+    }else{
+        return 's';
+    }
+}
+
+public Agent getNextLocation(){
+    char nearestAxis = getNearestDistanceAxis(cat);
+    if(nearestAxis == 'q'){
+
+    }else if(nearestAxis == 'r'){
+
+    }else{
+
+    }
+    return new Agent();
 }
 
 
