@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Hexagon } from "react-hexgrid";
 import { useDispatch, useSelector } from "react-redux";
-import { changeBlack } from "../store/girdSlice";
+import { changeBlack, addWallRequest } from "../store/girdSlice";
 
 const HexagonTile = ({ q, r, s }) => {
   const tile = useSelector((state) =>
-    state.grid.filter(
+    state.grid.grid.filter(
       (gridEl) => gridEl.q === q && gridEl.r === r && gridEl.s === s
     )
   );
@@ -14,8 +14,10 @@ const HexagonTile = ({ q, r, s }) => {
   const changeColor = () => {
     const gridId = { q: q, r: r, s: s };
     dispatch(changeBlack(gridId));
-    //Api request
-    //{q: q, r: r, s: s}
+    const req = async () => {
+      await dispatch(addWallRequest(gridId)).unwrap();
+    };
+    req();
   };
 
   return (

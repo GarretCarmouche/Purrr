@@ -9,7 +9,9 @@ import {
   Hex,
 } from "react-hexgrid";
 import HexagonTile from "./HexagonTile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setSizeRequest, getCatRequest, changeCat } from "../store/girdSlice";
 
 const patterns = [
   {
@@ -24,18 +26,41 @@ const patterns = [
 
 //Need to adjust viewbox based on the size of the board
 
+//Large: 7
+//Regular and Small 10
+const setSize = (size) => {
+  if (size === 7) return { x: 7, y: 7 };
+  return { x: 10, y: 10 };
+};
+
 const HexagonalGrid = () => {
-  const hexArray = useSelector((state) => state.grid);
+  const dispatch = useDispatch();
+  const hexArray = useSelector((state) => state.grid).grid;
+  const size = useSelector((state) => state.grid).size;
+
+  useEffect(() => {
+    const initRequest = async () => {
+      await dispatch(setSizeRequest(size)).unwrap();
+    };
+
+    initRequest();
+  }, []);
+
+  const handleCatMove = async () => {
+    let val = await dispatch(getCatRequest()).unwrap();
+    dispatch(changeCat(val));
+  };
+
   return (
     <>
       <HexGrid
         width={1400}
         height={750}
         viewBox="-50 -100 200 200"
-        onClick={() => console.log("Clicked")}
+        onClick={() => handleCatMove()}
       >
         <Layout
-          size={{ x: 10, y: 10 }}
+          size={setSize(size)}
           flat={true}
           spacing={1.05}
           origin={{ x: 0, y: 0 }}
