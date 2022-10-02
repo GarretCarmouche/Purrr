@@ -9,6 +9,9 @@ import {
   Hex,
 } from "react-hexgrid";
 import HexagonTile from "./HexagonTile";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setSizeRequest, getCatRequest, changeCat } from "../store/girdSlice";
 
 const patterns = [
   {
@@ -21,49 +24,49 @@ const patterns = [
   },
 ];
 
-const hexArr = (size) => {
-  let hexCordsArr = [];
-
-  for (let i = size * -1; i <= size; i++) {
-    let x = i <= 0 ? size : -1 * size;
-    let y = -1 * (x + i);
-
-    let start = x > y ? y : x;
-    let end = x > y ? x : y;
-
-    for (let j = start, k = end; j <= end; j++, k--) {
-      hexCordsArr.push({ q: i, r: j, s: k });
-    }
-  }
-  return hexCordsArr;
-};
-
 //Need to adjust viewbox based on the size of the board
 
-const HexagonalGrid = ({ size }) => {
-  const hexArray = hexArr(size);
+//Large: 7
+//Regular and Small 10
+const setSize = (size) => {
+  if (size === 7) return { x: 7, y: 7 };
+  return { x: 10, y: 10 };
+};
+
+const HexagonalGrid = () => {
+  const dispatch = useDispatch();
+  const hexArray = useSelector((state) => state.grid).grid;
+  const size = useSelector((state) => state.grid).size;
+
+  useEffect(() => {
+    const initRequest = async () => {
+      await dispatch(setSizeRequest(size)).unwrap();
+    };
+
+    initRequest();
+  }, []);
+
+  const handleCatMove = async () => {
+    let val = await dispatch(getCatRequest()).unwrap();
+    dispatch(changeCat(val));
+  };
+
   return (
     <>
       <HexGrid
         width={1400}
         height={750}
         viewBox="-50 -100 200 200"
-        onClick={() => console.log("Clicked")}
+        onClick={() => handleCatMove()}
       >
         <Layout
-          size={{ x: 10, y: 10 }}
+          size={setSize(size)}
           flat={true}
           spacing={1.05}
           origin={{ x: 0, y: 0 }}
         >
           {hexArray.map(({ q, r, s }) => (
-            <HexagonTile
-              q={q}
-              r={r}
-              s={s}
-              key={q + " " + r + " " + s}
-              patt={patterns[1].id}
-            />
+            <HexagonTile q={q} r={r} s={s} key={q + " " + r + " " + s} />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (
