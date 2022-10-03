@@ -74,8 +74,13 @@ public void moveCat(Agent newLocation)
 
 
 public boolean isCellBlocked(Agent location){
-
-        return false;
+    for(i = 1; i < wallList.size(); i++){
+        Agent wall = wallList.get(i);
+        if(wall.getQ() == location.getQ() && wall.getS() == location.getS() && wall.getR() == location.getR()){
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -90,16 +95,41 @@ public char getNearestDistanceAxis(Agent currentLocation){
     }
 }
 
+//Implementation of AI algorithm. Recursive, 3 move look ahead min/max?
 public Agent getNextLocation(){
-    char nearestAxis = getNearestDistanceAxis(cat);
-    if(nearestAxis == 'q'){
+    
+    int[] weight = {0,0,0,0,0,0};
 
-    }else if(nearestAxis == 'r'){
+    Agent[] moves = new Agent[6];
+    moves[0] = new Agent("1", cat.getQ(), cat.getR() -1, cat.getS() +1);
+    moves[1] = new Agent("2", cat.getQ() +1, cat.getR() -1, cat.getS());
+    moves[2] = new Agent("3", cat.getQ() +1, cat.getR(), cat.getS() -1);
+    moves[3] = new Agent("4", cat.getQ(), cat.getR() +1, cat.getS() -1);
+    moves[4] = new Agent("5", cat.getQ() -1, cat.getR() +1, cat.getS());
+    moves[5] = new Agent("6", cat.getQ() -1, cat.getR(), cat.getS() +1);
 
-    }else{
-
+    int maxWeight = Integer.MIN_VALUE;
+    Agent maxMove = moves[0];
+    for(i = 1; i < moves.length; i++) {
+        int weight = calcWeight(moves[i]);
+        if(weight > maxWeight){
+            maxWeight = weight;
+            maxMove = moves[i];
+        }
     }
-    return new Agent();
+
+
+    return maxMove;
+}
+
+public void calcWeight(Agent location){
+    if(isCellBlocked(location)){
+        return 1000;
+    }
+    
+    int minDist = Math.min(location.getS(), location.getQ());
+    minDist = Math.min(minDist,location.getR());
+    return minDist;
 }
 
 
