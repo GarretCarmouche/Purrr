@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.stereotype.Component;
-import com.Agent.AgentRestAPI.model.Agent;
 
+import org.springframework.stereotype.Component;
+
+import com.Agent.AgentRestAPI.model.Agent;
+//import com.Agent.AgentRestAPI.model.Board;
 
 
 @Component
@@ -15,26 +17,14 @@ public class AiLogic
     private Agent cat;
     //private Agent wall;
     private List<Agent> wallList = new ArrayList<>();
-    private int boardSize;
-    
+    //private Board gameBoard= null;// Just temporary until someone works on board class
 
 
 
 public AiLogic()
 {  
     cat = new Agent();
-    boardSize=0;
-}
-
-public void setBoardSize(int size)
-{
-    boardSize=size;
-    System.out.println(getBoardSize());
-}
-
-public int getBoardSize()
-{
-    return boardSize;
+    //gameBoard =new Board();
 }
 
 
@@ -47,7 +37,7 @@ public Map<String, String> sayHello() {
     return map;
 }
 
-//Returns json of cats location
+
 public Map<String, Object> getCatLocation() {
     HashMap<String, Object> map = new HashMap<>();
     map.put("id", cat.getID());
@@ -61,24 +51,20 @@ public Map<String, Object> getCatLocation() {
 //Add wall to list of walls
 public  void addWall(Agent wall)
 {
-    System.out.println(wall.getQ() + wall.getR() + wall.getS());
+    
     wallList.add(wall);
 
 }
 
 //set new location
 public void moveCat(Agent newLocation)
-{   System.out.println(newLocation.getQ()+newLocation.getR()+newLocation.getS());
+{
     cat=newLocation;
 }
 
-
 public boolean isCellBlocked(Agent location){
-
-        return false;
+    return wallList.contains(location);
 }
-
-
 
 public char getNearestDistanceAxis(Agent currentLocation){
     if(Math.abs(currentLocation.getQ()) > Math.abs(currentLocation.getR()) && Math.abs(currentLocation.getQ()) > Math.abs(currentLocation.getS())){
@@ -90,15 +76,41 @@ public char getNearestDistanceAxis(Agent currentLocation){
     }
 }
 
-public Agent getNextLocation(){
-    char nearestAxis = getNearestDistanceAxis(cat);
+public int evaluateLocation(Agent currentLocation, int depth, boolean recursive, int weight){
+    if(depth < 3){
+        Agent ag = new Agent();
+        ag.setQ(currentLocation.getQ()+1);
+        ag.setR(currentLocation.getR());
+        ag.setS(currentLocation.getS()-1);
+    
+        int changeWeight = 0;
+        int minDist = Math.max(Math.abs(ag.getQ()),Math.abs(ag.getR()));
+        minDist = Math.max(minDist,Math.abs(ag.getS()));
+        changeWeight += minDist;
+
+        int val1 = evaluateLocation(ag, depth+1,true,weight + changeWeight);
+    }
+    
+
+    return 1;
+}
+
+public Agent getNextLocation(Agent currentLocation){
+    if(currentLocation == null){
+        currentLocation = cat;
+    }
+
+    /*if(depth < 3){
+        
+    }
+    /*char nearestAxis = getNearestDistanceAxis(cat);
     if(nearestAxis == 'q'){
 
     }else if(nearestAxis == 'r'){
 
     }else{
 
-    }
+    }*/
     return new Agent();
 }
 

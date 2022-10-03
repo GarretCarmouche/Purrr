@@ -69,6 +69,6 @@ public class AIController {
     // GET http://localhost:8080/aicontroller/setboardsize
     @GetMapping("/setboardsize")
     public void setBoardSize(@RequestParam int size) {
-        catAi.setBoardSize(size);
+        //catAi.setBoardSize(size);
     }
 }
