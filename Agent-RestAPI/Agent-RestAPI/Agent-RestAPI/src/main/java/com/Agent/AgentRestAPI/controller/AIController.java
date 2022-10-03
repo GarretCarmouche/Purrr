@@ -2,6 +2,7 @@ package com.Agent.AgentRestAPI.controller;
 
 import org.springframework.http.HttpStatus;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +38,14 @@ public class AIController {
     // Test API call
     // Get http://localhost:8080/aicontroller/getagentlocation
     @GetMapping("/getagentlocation")
-    public Map<String, Object> getCatLocation() {
-        return catAi.getCatLocation();
+    public Map<String, String> getCatLocation() {
+        //return catAi.getCatLocation();
+        Agent newLocation = catAi.getNextLocation();
+        HashMap<String, String> returnMap = new HashMap<>();
+        returnMap.put("q", ""+newLocation.getQ());
+        returnMap.put("r", ""+newLocation.getR());
+        returnMap.put("s", ""+newLocation.getS());
+        return returnMap;
     }
 
     // GET http://localhost:8080/aicontroller/movecat

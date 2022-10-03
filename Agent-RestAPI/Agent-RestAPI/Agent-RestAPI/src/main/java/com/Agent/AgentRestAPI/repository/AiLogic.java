@@ -106,9 +106,9 @@ public Agent getNextLocation(){
     moves[4] = new Agent("5", cat.getQ() -1, cat.getR() +1, cat.getS());
     moves[5] = new Agent("6", cat.getQ() -1, cat.getR(), cat.getS() +1);
     
-    int maxWeight = Integer.MIN_VALUE;
+    int maxWeight = Integer.MAX_VALUE;
     Agent maxMove = moves[0];
-    for(int i = 1; i < moves.length; i++) {
+    for(int i = 0; i < moves.length-1; i++) {
         int weight = calcWeight(moves[i]);
         if(weight < maxWeight){
             maxWeight = weight;
