@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 
+/*
+NAME: hexArr
+PARAMATERS: size
+PURPOSE: This function generates an array of objects with q,r,s, and pattern values
+*/
 const hexArr = (size) => {
   let hexCordsArr = [];
 
@@ -17,8 +22,14 @@ const hexArr = (size) => {
   return hexCordsArr;
 };
 
+//This is the default state the redux store uses. This is used even before the user selects a size.
 const initialState = { grid: hexArr(3), size: 3 };
 
+/*
+NAME: setSizeRequest
+PARAMATERS: size
+PURPOSE: This function calls our backend api and tells them the size of the board
+*/
 export const setSizeRequest = createAsyncThunk(
   "setSizeRequest",
   async (size) => {
@@ -27,6 +38,12 @@ export const setSizeRequest = createAsyncThunk(
   }
 );
 
+/*
+NAME: addWallRequest
+PARAMATERS: wallCords
+PURPOSE: This function calls our backend api and tells them where the user is placing a wall
+PRECONDITION: The user has selected a wall
+*/
 export const addWallRequest = createAsyncThunk(
   "addWallRequest",
   async (wallCords) => {
@@ -35,16 +52,26 @@ export const addWallRequest = createAsyncThunk(
   }
 );
 
+/*
+NAME: getCatRequest
+PURPOSE: This function calls our backend api and asks for the cats location
+*/
 export const getCatRequest = createAsyncThunk("getCatRequest", async () => {
   const getReq = "http://localhost:8080/aicontroller/getagentlocation";
   const response = await fetch(getReq);
   return response.json();
 });
 
+//The grid slice variable handles non-async actions the user dispatches
 export const gridSlice = createSlice({
   name: "gird",
   initialState,
   reducers: {
+    /*
+    NAME: changeBlack
+    PARAMETERS: grid, action
+    PURPOSE: This function changes an individual tile in the redux store to black.
+    */
     changeBlack: (grid, action) => {
       const { q, r, s } = { ...action.payload };
       const newGrid = grid.grid.map((gridEl) =>
@@ -55,6 +82,11 @@ export const gridSlice = createSlice({
       return { grid: newGrid, size: grid.size };
     },
 
+    /*
+    NAME: changeCat
+    PARAMETERS: grid, action
+    PURPOSE: This function changes an individual tile in the redux store to the cat image.
+    */
     changeCat: (grid, action) => {
       const { q, r, s } = { ...action.payload };
       const newGrid = grid.grid.map((gridEl) =>
@@ -65,6 +97,11 @@ export const gridSlice = createSlice({
       return { grid: newGrid, size: grid.size };
     },
 
+    /*
+    NAME: initializeBoard
+    PARAMETERS: grid, action
+    PURPOSE: This function initializes the redux store based on the size given.
+    */
     initializeBoard: (grid, action) => {
       const size = parseInt(action.payload);
       return { grid: hexArr(size), size: size };

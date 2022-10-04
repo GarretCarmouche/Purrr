@@ -13,6 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setSizeRequest, getCatRequest, changeCat } from "../store/girdSlice";
 
+/*
+This variable is an object that has a key used by the board state
+and a link to the image that the tile needs to render corresponding to that key
+*/
 const patterns = [
   {
     id: "cat",
@@ -24,20 +28,35 @@ const patterns = [
   },
 ];
 
-//Need to adjust viewbox based on the size of the board
-
-//Large: 7
-//Regular and Small 10
+/*
+NAME: setSize
+PARAMATERS: size, integer
+PURPOSE: This function returns a size for the tiles depending on the size of the board
+PRECONDITION: The size of the board has been selected by the user
+*/
 const setSize = (size) => {
   if (size === 7) return { x: 7, y: 7 };
   return { x: 10, y: 10 };
 };
 
+/*
+NAME: HexagonalGrid
+PARAMATERS: none
+PURPOSE: This function returns a react component representing the game board
+PRECONDITION: The user has selected a size and a difficulty
+*/
 const HexagonalGrid = () => {
+  //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
+
+  //The hexArray variable grabs the current board from our redux store
   const hexArray = useSelector((state) => state.grid).grid;
+
+  //The size variable grabs the board size from our redux store
   const size = useSelector((state) => state.grid).size;
 
+  //This is a react hook that is executed on the initial rendering of this component
+  //It dispatches an action to our redux store that performs an api request
   useEffect(() => {
     const initRequest = async () => {
       await dispatch(setSizeRequest(size)).unwrap();
@@ -46,11 +65,20 @@ const HexagonalGrid = () => {
     initRequest();
   }, []);
 
+  /*
+  NAME: handleCatMove
+  PARAMATERS: none
+  PURPOSE: This function dispatches an action to our redux store that requests the cats location
+  PRECONDITION: The user has blocked a tile
+  */
   const handleCatMove = async () => {
     let val = await dispatch(getCatRequest()).unwrap();
     dispatch(changeCat(val));
   };
 
+  //This return statement is what is actually rendered by this component
+  //Subcomponents that are rendered have props passed into them that include values, strings,
+  //or functions that map handle events
   return (
     <>
       <HexGrid
