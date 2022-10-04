@@ -7,6 +7,7 @@ import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 
+//Root renders our appliaction as well as provides the redux store to the application
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
