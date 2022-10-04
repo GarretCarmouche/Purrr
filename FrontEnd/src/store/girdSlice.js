@@ -58,7 +58,7 @@ export const gridSlice = createSlice({
     changeCat: (grid, action) => {
       const { q, r, s } = { ...action.payload };
       const newGrid = grid.grid.map((gridEl) =>
-        gridEl.q === q && gridEl.r === r && gridEl.s === s
+        gridEl.q == q && gridEl.r == r && gridEl.s == s
           ? { q: q, r: r, s: s, pattern: "cat" }
           : gridEl
       );
