@@ -1,5 +1,12 @@
 package com.Agent.AgentRestAPI.model;
-
+/*
+ * @name Agent
+ * @autor Alonso Montelongo
+ * @version 1.0
+ * @data 10/8/2022
+ * This class will model a agent in our game, in order to make manipulation of data easier
+ * in this instance an agent may reprensent a cat or a wall
+ */
 public class Agent 
 {   String id;
     int q;

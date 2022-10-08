@@ -1,5 +1,14 @@
 package com.Agent.AgentRestAPI.repository;
-
+/*
+ * @name AiLogic
+ * @author Alonso Montelongo, Kile Soto, Garret Carmouche
+ * @version 1.0
+ * @data 10/08/2022
+ * With in this class we are able to set the games enviorments and change the state of it.
+ * Allowing us to have an enviorment that is constantly changing with the introducion of wall agents.
+ * Here we also change the state of the cat agent by changing the location once a new wall agent is introduced to our enviorment
+ * 
+ */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,37 +17,54 @@ import org.springframework.stereotype.Component;
 import com.Agent.AgentRestAPI.model.Agent;
 
 
-
+//This class annotation allows spring to manage the components being called in the controlle class
 @Component
 public class AiLogic 
 {
     private Agent cat;
-    //private Agent wall;
     private List<Agent> wallList = new ArrayList<>();
     private int boardSize;
     
 
 
-
+/*
+ * Constructor, creates an instance of our AiLogic class
+ * @param none
+ * @return none
+ */
 public AiLogic()
 {  
     cat = new Agent();
     boardSize=0;
 }
 
+/*
+ * Assign the board size for an instance of our object, should only be called onece during runtime
+ * @param size An integer that will be the size of the board at the start of the game
+ * @return void
+ */
 public void setBoardSize(int size)
 {
     boardSize=size;
     System.out.println(getBoardSize());
 }
 
+/*
+ * Will return the board size as an integer
+ * @param none
+ * @return boardSize An integer value
+ */
 public int getBoardSize()
 {
     return boardSize;
 }
 
 
-//test json mapping
+/*
+ * This call was created in order to test comunication between the our AIController class
+ * @param none
+ * @return map A Map object with contains the key and values as string typed
+ */
 public Map<String, String> sayHello() {
     HashMap<String, String> map = new HashMap<>();
     map.put("key", "value");
