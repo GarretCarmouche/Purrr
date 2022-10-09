@@ -53,10 +53,13 @@ public class AIController {
     }
     /*
      * @name getCatLocation
-     * @purpose To test Api endpoint, will send the client Json data containing our cat a
+     * @purpose To get the location of the cat agent
+     * @precondition An instance of the cat agent must exist
+     * @postcondition The user will recive configured Json data of the cat agents current location
+     * @param none
+     * @return returnMap : A Map object that will be configured to Json for the client
+     * Get http://localhost:8080/aicontroller/getagentlocation
      */
-    // Test API call
-    // Get http://localhost:8080/aicontroller/getagentlocation
     @GetMapping("/getagentlocation")
     public Map<String, String> getCatLocation() {
         //return catAi.getCatLocation();
@@ -67,8 +70,15 @@ public class AIController {
         returnMap.put("s", ""+newLocation.getS());
         return returnMap;
     }
-
-    // GET http://localhost:8080/aicontroller/movecat
+    /*
+     * @name moveCat
+     * @purpose To move the cat agent to a new location
+     * @precondition An instance of the cat agent must exist
+     * @postcondition The cat agent will be moved to a new set of corrdinates 
+     * @param q,r,s : a set of interger values repersneting the cats corrdinates on the board
+     * @return void : none
+     * GET http://localhost:8080/aicontroller/movecat
+     */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @GetMapping("/movecat")
     public void moveCat(@RequestParam int q, int r, int s) {
@@ -78,8 +88,15 @@ public class AIController {
         newCatLocation.setS(s);
         catAi.moveCat(newCatLocation);
     }
-
-    // GET http://localhost:8080/aicontroller/addwall
+    /*
+     * @name addWall
+     * @purpose To add a wall agent to our list of walls from the client
+     * @precondition An instance of the wallList must exist
+     * @postcondition The wallList will have gained a new wall agent by one, with corrdinates q,r,s
+     * @param q,r,s : a set of interger values repersneting the cats corrdinates on the board
+     * @return void : none
+     * GET http://localhost:8080/aicontroller/addwall
+     */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @GetMapping("/addwall")
     public void addWall(@RequestParam int q, int r, int s) {
@@ -89,7 +106,14 @@ public class AIController {
         newAg.setS(s);
         catAi.addWall(newAg);
     }
-
+    /*
+     * @name setBoardSize
+     * @purpose To set the board size where we would be able to manipulate data from
+     * @precondition An instance of the board member must exsit
+     * @postcondition The board member will have a new integer value of size more than 0
+     * @param size : An integer value for the board member
+     * @return void : none
+     */
     // GET http://localhost:8080/aicontroller/setboardsize
     @GetMapping("/setboardsize")
     public void setBoardSize(@RequestParam int size) {
