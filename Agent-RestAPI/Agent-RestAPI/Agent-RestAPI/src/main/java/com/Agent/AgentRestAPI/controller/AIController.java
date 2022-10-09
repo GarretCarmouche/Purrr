@@ -4,8 +4,8 @@ package com.Agent.AgentRestAPI.controller;
  * @author Alonso Montelongo
  * @version 1.0
  * @data 10/08/2022
- * Contains the endpoints the frontend needs to call in order to pass/retrive data to out AILogic class
- * 
+ * @purpose Contains the endpoints the frontend needs to call in order to pass/retrive data to out AILogic class
+ * @invariants Yes
  */
 
 import org.springframework.http.HttpStatus;
@@ -17,28 +17,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.Agent.AgentRestAPI.Logic.AiLogic;
 import com.Agent.AgentRestAPI.model.Agent;
-import com.Agent.AgentRestAPI.repository.AiLogic;
 
 @RestController
 @RequestMapping("/aicontroller")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AIController {
     private AiLogic catAi;
-
-    // This will create and instance of our agent
+    /*
+     * @name AIController
+     * @purpose To create an instance of our AIController
+     * @preconditions none
+     * @postconditions Will assign an instance of AiLogic
+     * @parma catAi : An instance of the AiLogic class
+     * @return none
+     */
     public AIController(AiLogic catAi) {
         this.catAi = catAi;
 
     }
-
-    // Test API call
-    // Get http://localhost:8080/aicontroller/test
+    /*
+     * @name sayHello
+     * @purpose To test Api endpoint, seeing if a client is reciving the data in Json format, test API Call
+     * @preconditions none
+     * @postconditions The user will recive configured Json data for testing
+     * @param none
+     * @return cat.sayHello : a call to our AiLogic method to return it to the user
+     * Get http://localhost:8080/aicontroller/test
+     */
     @GetMapping("/test")
     public Map<String, String> sayHello() {
         return catAi.sayHello();
     }
-
+    /*
+     * @name getCatLocation
+     * @purpose To test Api endpoint, will send the client Json data containing our cat a
+     */
     // Test API call
     // Get http://localhost:8080/aicontroller/getagentlocation
     @GetMapping("/getagentlocation")
@@ -71,9 +87,6 @@ public class AIController {
         newAg.setQ(q);
         newAg.setR(r);
         newAg.setS(s);
-        System.out.println(q);
-        System.out.println(r);
-        System.out.println(s);
         catAi.addWall(newAg);
     }
 
