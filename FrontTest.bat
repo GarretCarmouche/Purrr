@@ -3,4 +3,4 @@
 cd FrontEnd
 npm start
 
-pause
+puase
