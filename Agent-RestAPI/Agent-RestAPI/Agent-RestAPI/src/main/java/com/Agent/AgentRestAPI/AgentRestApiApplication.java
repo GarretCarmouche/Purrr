@@ -36,6 +36,7 @@ public class AgentRestApiApplication implements WebMvcConfigurer {
 	 * Param: none
 	 * Return: configurations to Spring Boot
 	 */
+	
 	//The Bean annotation allows Spring Boot container to manage our API endpoints
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
