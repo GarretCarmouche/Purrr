@@ -3,8 +3,8 @@ package com.Agent.AgentRestAPI.controller;
  * File Name: AIController.java
  * Version: 1.0
  * Data: 10/08/2022
- * Purpose: Contains the endpoints the frontend needs to call in order to pass/retrive data to out AILogic class
- * Invariants:No
+ * Purpose: Contains the endpoints the front end needs to call in order to pass/retrieve data to out AiLogic class
+ * Invariants:
  */
 
 import org.springframework.http.HttpStatus;
@@ -39,9 +39,9 @@ public class AIController {
     }
     /*
      * Name: sayHello
-     * Purpose: To test Api endpoint, seeing if a client is reciving the data in Json format, test API Call
+     * Purpose: To test Api endpoint, seeing if a client is receiving the data in JSON format, test API Call
      * Preconditions: none
-     * Postconditions: The user will recive configured Json data for testing
+     * Postconditions: The user will recive configured JSON data for testing
      * Param: none
      * Return: cat.sayHello : a call to our AiLogic method to return it to the user
      * Get http://localhost:8080/aicontroller/test
@@ -54,9 +54,9 @@ public class AIController {
      * Name: getCatLocation
      * Purpose: To get the location of the cat agent
      * Precondition: An instance of the cat agent must exist
-     * Postcondition: The user will recive configured Json data of the cat agents current location
+     * Postcondition: The user will recive configured JSON data of the cat agents current location
      * Param: none
-     * Return: returnMap : A Map object that will be configured to Json for the client
+     * Return: returnMap : A Map object that will be configured to JSON for the client
      * Get http://localhost:8080/aicontroller/getagentlocation
      */
     @GetMapping("/getagentlocation")
@@ -73,8 +73,8 @@ public class AIController {
      * Name: moveCat
      * Purpose: To move the cat agent to a new location
      * Precondition: An instance of the cat agent must exist
-     * Postcondition: The cat agent will be moved to a new set of corrdinates 
-     * Param: q,r,s : a set of interger values repersneting the cats corrdinates on the board
+     * Postcondition: The cat agent will be moved to a new set of coordinates 
+     * Param: q,r,s : a set of interger values repersneting the cats coordinates on the board
      * Return: void : none
      * GET http://localhost:8080/aicontroller/movecat
      */
@@ -91,8 +91,8 @@ public class AIController {
      * Name: addWall
      * Purpose: To add a wall agent to our list of walls from the client
      * Precondition: An instance of the wallList must exist
-     * Postcondition: The wallList will have gained a new wall agent by one, with corrdinates q,r,s
-     * Param: q,r,s : a set of interger values repersneting the cats corrdinates on the board
+     * Postcondition: The wallList will have gained a new wall agent by one, with coordinates q,r,s
+     * Param: q,r,s : a set of interger values representing the cats coordinates on the board
      * Return: void : none
      * GET http://localhost:8080/aicontroller/addwall
      */
@@ -107,8 +107,8 @@ public class AIController {
     }
     /*
      * Name: setBoardSize
-     * Purpose: To set the board size where we would be able to manipulate data from
-     * Precondition: An instance of the board member must exsit
+     * Purpose: To set the board size so our backend can calculate final positions and states
+     * Precondition: An instance of the board member must exist
      * Postcondition: The board member will have a new integer value of size more than 0
      * Param: size : An integer value for the board member
      * Return: void : none
