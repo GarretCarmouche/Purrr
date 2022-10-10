@@ -4,7 +4,7 @@ package com.Agent.AgentRestAPI.Logic;
  * Author: Alonso Montelongo, Kile Soto, Garret Carmouche
  * Version: 1.0
  * Data: 10/08/2022
- * Purpose: With in this class we are able to set the games enviorments and change the state of it.
+ * Purpose: Within this class we are able to set the game's enviorments and change the state of them.
  * Allowing us to have an enviorment that is constantly changing with the introducion of wall agents.
  * Here we also change the state of the cat agent by changing the location once a new wall agent is introduced to our enviorment
  * 
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import com.Agent.AgentRestAPI.model.Agent;
 
 
-//This class annotation allows spring to manage the components being called in the controlle class
+//This class annotation allows spring to manage the components being called in the controller class
 @Component
 public class AiLogic 
 {
@@ -43,7 +43,7 @@ public AiLogic()
 
 /*
  * Name: setBoardSize
- * Purpose: Assign the board size for an instance of our object, should only be called onece during runtime
+ * Purpose: Assign the board size for an instance of our object, should only be called once during runtime
  * Precondition: Instance of class must be created
  * Postcondition: Our boardSize will have a new value
  * Param: size An integer that will be the size of the board at the start of the game
@@ -105,7 +105,7 @@ public Map<String, Object> getCatLocation() {
 
 /*
  * Name: addWall
- * Purpose: Will add a agent that repersents a wall to the list of walls we currently have in our wallList
+ * Purpose: Will add an agent that repersents a wall to the list of walls we currently have in wallList
  * Precondition: An instance of our wallList must be created
  * Postcondition: The wallList member will have increaed the number of agents in its list by one
  * Param: wall : wall is a agent that contains the coordinates of the wall placed by the user
@@ -122,7 +122,7 @@ public  void addWall(Agent wall)
  * Name: moveCat
  * Purpose: To set our cat agent to a new location
  * Precondition: An instance of our cat agent must exist
- * Postcondition: The cat agent will have a new coordinates corisponding to the new agents q,r,s
+ * Postcondition: The cat agent will have new coordinates corisponding to the new agents q,r,s
  * Param: newLocation : This will be a new agent with diffrent coordinates
  * Return: void : none
  */
@@ -133,7 +133,7 @@ public void moveCat(Agent newLocation)
 
 /*
  * Name: isCellBlocked
- * Purpose: To see if the given location is contained inside wallList
+ * Purpose: To see if the given location exists inside wallList
  * Precondition: The wallList must contain one agent 
  * Postcondition: Will let the user know if a wall exist in that location
  * Param: location : A agent with its own coordinates of q,r,s
@@ -152,9 +152,9 @@ public boolean isCellBlocked(Agent location){
 
 /*
  * Name: getNearestdistanceAxis
- * Purpose: To get the board axis closest to the cat agent current location
+ * Purpose: To get the axis based on the currentLocation that is closest to the edge
  * Precondition: An instance of our cat agent must exist, and board size must be more than 0
- * Postcondition: User will know which axis is the closest to our agent
+ * Postcondition: User will know which axis currentLocation is closest to the edge on
  * Param: currentLocation :This will be a agent that contains its own coordinates q,r,s
  * Return: char : Will return the corresponding axis of our agent that value is the largest from its q,r,s
  */
@@ -170,7 +170,7 @@ public char getNearestDistanceAxis(Agent currentLocation){
 
 /*
  * Name: getNextLocation
- * Purpose: To calculate a new location for the cat agent to move to
+ * Purpose: To calculate a new location for the cat agent to move to based on its current location
  * Precondition: An instance of our cat agent must exist, and board size must be more than 0
  * Postcondition: The cat agent will have a new location corresponding to the agent maxMove
  * Param: none
@@ -202,9 +202,9 @@ public Agent getNextLocation(){
 
 /*
  * Name: calcWeight
- * Purpose: To give the user the minimum distance of the agents corrdinates
+ * Purpose: Calculate a weight for the given location based on pre-determined metrics
  * Precondition: Agent must not have corrdinates 0,0,0
- * Postcondition: User will know the axis with the smallest value
+ * Postcondition: User will know the weight of the location
  * Param: location : An agent withs its own corrdinates q,r,s
  * Return: minDist : The lowest int value between the location agent axis q,r,s
  */
