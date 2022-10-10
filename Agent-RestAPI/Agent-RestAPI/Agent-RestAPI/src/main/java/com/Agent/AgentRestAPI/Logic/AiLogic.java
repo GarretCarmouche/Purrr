@@ -7,7 +7,7 @@ package com.Agent.AgentRestAPI.Logic;
  * Purpose: With in this class we are able to set the games enviorments and change the state of it.
  * Allowing us to have an enviorment that is constantly changing with the introducion of wall agents.
  * Here we also change the state of the cat agent by changing the location once a new wall agent is introduced to our enviorment
- * CS 3368 Introduction to Artificial Intelligence Section 001
+ * 
  */
 import java.util.ArrayList;
 import java.util.HashMap;
