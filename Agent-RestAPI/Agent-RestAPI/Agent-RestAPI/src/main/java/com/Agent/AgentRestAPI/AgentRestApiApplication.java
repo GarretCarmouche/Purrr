@@ -1,7 +1,7 @@
 package com.Agent.AgentRestAPI;
 /*
  * File Name: AgentRestApiApplication.java
- * Author: Alonso Montelongo, Ethan Harness
+ * Author: Alonso Montelongo, Kole Soto, Garret Carmouche
  * Version: 1.0
  * Data: 10/08/2022
  * Purpose: This class is where Java Spring Boot creates a server to run the 

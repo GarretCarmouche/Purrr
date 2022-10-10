@@ -1,7 +1,6 @@
 package com.Agent.AgentRestAPI.Logic;
 /*
  * FileNaem: AiLogic.java
- * Author: Alonso Montelongo, Kile Soto, Garret Carmouche
  * Version: 1.0
  * Data: 10/08/2022
  * Purpose: With in this class we are able to set the games enviorments and change the state of it.

@@ -1,7 +1,6 @@
 package com.Agent.AgentRestAPI.model;
 /*
  * File Name: Agent.java
- * Autor: Alonso Montelongo
  * Version: 1.0
  * Data: 10/8/2022
  * Purpose: This class will model a agent in our game, in order to make manipulation of data easier
