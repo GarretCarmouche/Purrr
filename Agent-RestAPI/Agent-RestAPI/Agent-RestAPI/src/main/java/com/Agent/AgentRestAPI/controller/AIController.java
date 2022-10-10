@@ -1,7 +1,6 @@
 package com.Agent.AgentRestAPI.controller;
 /*
  * File Name: AIController.java
- * Author: Alonso Montelongo
  * Version: 1.0
  * Data: 10/08/2022
  * Purpose: Contains the endpoints the frontend needs to call in order to pass/retrive data to out AILogic class
