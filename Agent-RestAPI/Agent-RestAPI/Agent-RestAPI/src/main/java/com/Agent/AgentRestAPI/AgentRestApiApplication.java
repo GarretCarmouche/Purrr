@@ -1,10 +1,10 @@
 package com.Agent.AgentRestAPI;
 /*
- * @naem AgentRestApiApplication
- * @author Alonso Montelongo, Ethan Harness
- * @version 1.0
- * @data 10/08/2022
- * @purpose This class is where Java Spring Boot creates a server to run the 
+ * File Name: AgentRestApiApplication.java
+ * Author: Alonso Montelongo, Ethan Harness
+ * Version: 1.0
+ * Data: 10/08/2022
+ * Purpose: This class is where Java Spring Boot creates a server to run the 
  * application
  */
 import org.springframework.boot.SpringApplication;
@@ -17,23 +17,23 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class AgentRestApiApplication implements WebMvcConfigurer {
 	/*
-	 * @name main
-	 * @purpose Allows us to run the application
-	 * @precondition none
-	 * @postcondition Will run our application constantly
-	 * @param String[]args : A String argument
-	 * @return void : none
+	 * Name: main
+	 * Purpose: Allows us to run the application
+	 * Precondition: none
+	 * Postcondition: Will run our application constantly
+	 * Param: String[]args : A String argument
+	 * Return: void : none
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(AgentRestApiApplication.class, args);
 	}
 	/*
-	 * @name corsConfigurue
-	 * @purpose Configures our API endpoints by overiding addCorsMappings
-	 * @precondtionn Endpoins must exsit
-	 * @postcondition Allows user to call the endpoints via GET request
-	 * @param none
-	 * @return configurations to Spring Boot
+	 * Name: corsConfigurue
+	 * Purpose: Configures our API endpoints by overiding addCorsMappings
+	 * Precondtion: Endpoins must exsit
+	 * Postcondition: Allows user to call the endpoints via GET request
+	 * Param: none
+	 * Return: configurations to Spring Boot
 	 */
 	//The Bean annotation allows Spring Boot container to manage our API endpoints
 	@Bean

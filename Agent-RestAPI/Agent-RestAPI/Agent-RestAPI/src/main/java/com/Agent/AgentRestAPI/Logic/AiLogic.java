@@ -1,13 +1,13 @@
 package com.Agent.AgentRestAPI.Logic;
 /*
- * @name AiLogic
- * @author Alonso Montelongo, Kile Soto, Garret Carmouche
- * @version 1.0
- * @data 10/08/2022
- * @purpose With in this class we are able to set the games enviorments and change the state of it.
+ * FileNaem: AiLogic.java
+ * Author: Alonso Montelongo, Kile Soto, Garret Carmouche
+ * Version: 1.0
+ * Data: 10/08/2022
+ * Purpose: With in this class we are able to set the games enviorments and change the state of it.
  * Allowing us to have an enviorment that is constantly changing with the introducion of wall agents.
  * Here we also change the state of the cat agent by changing the location once a new wall agent is introduced to our enviorment
- * @invariants No
+ * Invariants: No
  */
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +28,12 @@ public class AiLogic
 
 
 /*
- * @naem AiLogic
- * @purpose Constructor, creates an instance of our AiLogic class
- * @precondition none
- * @postcondition An instance of a cat agent will be created, our walllist will be empty, and our boardSize will be set to zero
- * @param none
- * @return none
+ * Name: AiLogic
+ * Purpose: Constructor, creates an instance of our AiLogic class
+ * Precondition: none
+ * Postcondition: An instance of a cat agent will be created, our walllist will be empty, and our boardSize will be set to zero
+ * Param: none
+ * Return: none
  */
 public AiLogic()
 {  
@@ -42,12 +42,12 @@ public AiLogic()
 }
 
 /*
- * @name setBoardSize
- * @purpose Assign the board size for an instance of our object, should only be called onece during runtime
- * @precondition Instance of class must be created
- * @postcondition Our boardSize will have a new value
- * @param size An integer that will be the size of the board at the start of the game
- * @return void : none
+ * Name: setBoardSize
+ * Purpose: Assign the board size for an instance of our object, should only be called onece during runtime
+ * Precondition: Instance of class must be created
+ * Postcondition: Our boardSize will have a new value
+ * Param: size An integer that will be the size of the board at the start of the game
+ * Return void : none
  */
 public void setBoardSize(int size)
 {
@@ -56,12 +56,12 @@ public void setBoardSize(int size)
 }
 
 /*
- * @name getBoardSize
- * @purpose Will return the board size as an integer
- * @precondition Instance of class must be created
- * @postcondition Will return the value of the boards current size
- * @param none
- * @return boardSize :An integer value
+ * Name: getBoardSize
+ * Purpose: Will return the board size as an integer
+ * Precondition: Instance of class must be created
+ * Postcondition: Will return the value of the boards current size
+ * Param: none
+ * Return: boardSize :An integer value
  */
 public int getBoardSize()
 {
@@ -70,12 +70,12 @@ public int getBoardSize()
 
 
 /*
- * @name sayHello
- * @purpose This call was created in order to test comunication between the our AIController class
- * @precondition none this is a test
- * @postcondition Will give the user a mapped object with preset values
- * @param none
- * @return map :A Map object with contains the key and values as string typed
+ * Name: sayHello
+ * Purpose: This call was created in order to test comunication between the our AIController class
+ * Precondition: none this is a test
+ * Postcondition: Will give the user a mapped object with preset values
+ * Param: none
+ * Return: map :A Map object with contains the key and values as string typed
  */
 public Map<String, String> sayHello() {
     HashMap<String, String> map = new HashMap<>();
@@ -86,12 +86,12 @@ public Map<String, String> sayHello() {
 }
 
 /*
- * @name getCatLocation
- * @purpose Will return the cats current location as Map object
- * @precondition An instance of the cat agent must be created
- * @postcondition The user will have the current location of the cat agent
- * @param none
- * @return map :The object will have the id and the q,r,s coordinates mapped out to the values the cat agent has at id,q,r,s 
+ * Name: getCatLocation
+ * Purpose: Will return the cats current location as Map object
+ * Precondition: An instance of the cat agent must be created
+ * Postcondition: The user will have the current location of the cat agent
+ * Param: none
+ * Return: map :The object will have the id and the q,r,s coordinates mapped out to the values the cat agent has at id,q,r,s 
  */
 public Map<String, Object> getCatLocation() {
     HashMap<String, Object> map = new HashMap<>();
@@ -104,12 +104,12 @@ public Map<String, Object> getCatLocation() {
 
 
 /*
- * @name addWall
- * @purpose Will add a agent that repersents a wall to the list of walls we currently have in our wallList
- * @precondition An instance of our wallList must be created
- * @postcondition The wallList member will have increaed the number of agents in its list by one
- * @param wall : wall is a agent that contains the coordinates of the wall placed by the user
- * @return void :none
+ * Name: addWall
+ * Purpose: Will add a agent that repersents a wall to the list of walls we currently have in our wallList
+ * Precondition: An instance of our wallList must be created
+ * Postcondition: The wallList member will have increaed the number of agents in its list by one
+ * Param: wall : wall is a agent that contains the coordinates of the wall placed by the user
+ * Return: void :none
  */
 public  void addWall(Agent wall)
 {
@@ -119,12 +119,12 @@ public  void addWall(Agent wall)
 }
 
 /*
- * @name moveCat
- * @purpose To set our cat agent to a new location
- * @precondition An instance of our cat agent must exist
- * @postcondition The cat agent will have a new coordinates corisponding to the new agents q,r,s
- * @param newLocation : This will be a new agent with diffrent coordinates
- * @return void : none
+ * Name: moveCat
+ * Purpose: To set our cat agent to a new location
+ * Precondition: An instance of our cat agent must exist
+ * Postcondition: The cat agent will have a new coordinates corisponding to the new agents q,r,s
+ * Param: newLocation : This will be a new agent with diffrent coordinates
+ * Return: void : none
  */
 public void moveCat(Agent newLocation)
 {   System.out.println("Cat New Location : "+newLocation.getQ()+" " + newLocation.getR()+" " + newLocation.getS());
@@ -132,12 +132,12 @@ public void moveCat(Agent newLocation)
 }
 
 /*
- * @name isCellBlocked
- * @purpose To see if the given location is contained inside wallList
- * @precondition The wallList must contain one agent 
- * @postcondition Will let the user know if a wall exist in that location
- * @param location : A agent with its own coordinates of q,r,s
- * @return boolean : True for wall exist in our list ,else false
+ * Name: isCellBlocked
+ * Purpose: To see if the given location is contained inside wallList
+ * Precondition: The wallList must contain one agent 
+ * Postcondition: Will let the user know if a wall exist in that location
+ * Param: location : A agent with its own coordinates of q,r,s
+ * Return: boolean : True for wall exist in our list ,else false
  */
 public boolean isCellBlocked(Agent location){
     for(int i = 0; i < wallList.size(); i++){
@@ -151,12 +151,12 @@ public boolean isCellBlocked(Agent location){
 
 
 /*
- * @name getNearestdistanceAxis
- * @purpose To get the board axis closest to the cat agent current location
- * @precondition An instance of our cat agent must exist, and board size must be more than 0
- * @postcondition User will know which axis is the closest to our agent
- * @param currentLocation :This will be a agent that contains its own coordinates q,r,s
- * @return char : Will return the corresponding axis of our agent that value is the largest from its q,r,s
+ * Name: getNearestdistanceAxis
+ * Purpose: To get the board axis closest to the cat agent current location
+ * Precondition: An instance of our cat agent must exist, and board size must be more than 0
+ * Postcondition: User will know which axis is the closest to our agent
+ * Param: currentLocation :This will be a agent that contains its own coordinates q,r,s
+ * Return: char : Will return the corresponding axis of our agent that value is the largest from its q,r,s
  */
 public char getNearestDistanceAxis(Agent currentLocation){
     if(Math.abs(currentLocation.getQ()) > Math.abs(currentLocation.getR()) && Math.abs(currentLocation.getQ()) > Math.abs(currentLocation.getS())){
@@ -169,12 +169,12 @@ public char getNearestDistanceAxis(Agent currentLocation){
 }
 
 /*
- * @name getNextLocation
- * @purpose To calculate a new location for the cat agent to move to
- * @precondition An instance of our cat agent must exist, and board size must be more than 0
- * @postcondition The cat agent will have a new location corresponding to the agent maxMove
- * @param none
- * @return maxMove : A new agent with the calculated max weight
+ * Name: getNextLocation
+ * Purpose: To calculate a new location for the cat agent to move to
+ * Precondition: An instance of our cat agent must exist, and board size must be more than 0
+ * Postcondition: The cat agent will have a new location corresponding to the agent maxMove
+ * Param: none
+ * Return: maxMove : A new agent with the calculated max weight
  */
 public Agent getNextLocation(){
 
@@ -201,12 +201,12 @@ public Agent getNextLocation(){
 }
 
 /*
- * @name calcWeight
- * @purpose To give the user the minimum distance of the agents corrdinates
- * @precondition Agent must not have corrdinates 0,0,0
- * @postcondition User will know the axis with the smallest value
- * @param location : An agent withs its own corrdinates q,r,s
- * @return minDist : The lowest int value between the location agent axis q,r,s
+ * Name: calcWeight
+ * Purpose: To give the user the minimum distance of the agents corrdinates
+ * Precondition: Agent must not have corrdinates 0,0,0
+ * Postcondition: User will know the axis with the smallest value
+ * Param: location : An agent withs its own corrdinates q,r,s
+ * Return: minDist : The lowest int value between the location agent axis q,r,s
  */
 public int calcWeight(Agent location){
     if(isCellBlocked(location)){
