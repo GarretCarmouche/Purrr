@@ -6,6 +6,7 @@ package com.Agent.AgentRestAPI;
  * Data: 10/08/2022
  * Purpose: This class is where Java Spring Boot creates a server to run the 
  * application
+ * CS 3368 Introduction to Artificial Intelligence Section 001
  */
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
