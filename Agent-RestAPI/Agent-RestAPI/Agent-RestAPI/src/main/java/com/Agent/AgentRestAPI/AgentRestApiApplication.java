@@ -35,6 +35,7 @@ public class AgentRestApiApplication implements WebMvcConfigurer {
 	 * Postcondition: Allows user to call the endpoints via GET request
 	 * Param: none
 	 * Return: configurations to Spring Boot
+	 * 
 	 */
 	
 	//The Bean annotation allows Spring Boot container to manage our API endpoints
