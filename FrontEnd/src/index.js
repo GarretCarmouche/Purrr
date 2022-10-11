@@ -1,3 +1,12 @@
+/*
+ * FILENAME:        index.js
+ * AUTHOR:          Ethan Harness, Karl Devlin
+ * VERSION:         1.0
+ * DATE:            10/10/2022
+ * SPECIFICATION:   This is where our root is housed in order to run and render 
+ *                  the frontend aspects of the application.
+ * CLASS:           CS 3368 Introduction to Artificial Intelligence Section 001
+ */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -15,7 +24,4 @@ root.render(
   </Provider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
