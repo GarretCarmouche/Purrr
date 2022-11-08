@@ -15,7 +15,6 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 import com.Agent.AgentRestAPI.model.Agent;
 
-
 //This class annotation allows spring to manage the components being called in the controller class
 @Component
 public class AiLogic 
@@ -23,6 +22,7 @@ public class AiLogic
     private Agent cat;
     private List<Agent> wallList = new ArrayList<>();
     private int boardSize;
+    private int depth = 4; // Default depth
     
 
 
@@ -175,28 +175,84 @@ public char getNearestDistanceAxis(Agent currentLocation){
  * Param: none
  * Return: maxMove : A new agent with the calculated max weight
  */
+
+
+ 
 public Agent getNextLocation(){
+    long startTime = System.currentTimeMillis();
+    Agent nextLocation = (Agent) getNextLocation(depth, cat,0, null)[2];
+    System.out.println("Step time: " + (System.currentTimeMillis() - startTime));
+    moveCat(nextLocation);
+    return nextLocation;
+}
 
-    Agent[] moves = new Agent[6];
-    moves[0] = new Agent("1", cat.getQ(), cat.getR() -1, cat.getS() +1);
-    moves[1] = new Agent("2", cat.getQ() +1, cat.getR() -1, cat.getS());
-    moves[2] = new Agent("3", cat.getQ() +1, cat.getR(), cat.getS() -1);
-    moves[3] = new Agent("4", cat.getQ(), cat.getR() +1, cat.getS() -1);
-    moves[4] = new Agent("5", cat.getQ() -1, cat.getR() +1, cat.getS());
-    moves[5] = new Agent("6", cat.getQ() -1, cat.getR(), cat.getS() +1);
-    
-    int maxWeight = Integer.MAX_VALUE;
-    Agent maxMove = moves[0];
-    for(int i = 0; i < moves.length-1; i++) {
-        int weight = calcWeight(moves[i]);
-        if(weight < maxWeight){
-            maxWeight = weight;
-            maxMove = moves[i];
+private Object[] getNextLocation(int currentDepth, Agent currentLocation, int currentWeight, Agent firstStep){
+    if(currentDepth == depth - 1){firstStep = currentLocation;}
+
+    if(currentDepth == 0){
+        Agent[] moves = new Agent[6];
+        moves[0] = new Agent("1", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
+        moves[1] = new Agent("2", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
+        moves[2] = new Agent("3", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
+        moves[3] = new Agent("4", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
+        moves[4] = new Agent("5", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
+        moves[5] = new Agent("6", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
+        
+        int minWeight = Integer.MAX_VALUE;
+        Agent maxMove = moves[0];
+        for(int i = 0; i < moves.length-1; i++) {
+            int weight = calcWeight(moves[i]);
+            if(weight < minWeight){
+                minWeight = weight;
+                maxMove = moves[i];
+            }
         }
-    }
 
-    moveCat(maxMove);
-    return maxMove;
+        currentWeight += minWeight;
+        Object[] returns = new Object[3];
+        returns[0] = maxMove;
+        returns[1] = minWeight;
+        returns[2] = firstStep;
+
+        System.out.println("Base - Current depth: " + currentDepth + " minWeight: " + minWeight + " maxMove: " + maxMove);
+        return returns;
+
+     }else{
+        Object[][] returns = new Object[6][];
+        currentDepth--;
+        returns[0] = getNextLocation(currentDepth,new Agent("1", currentLocation.getQ(), currentLocation.getR() -1, currentLocation.getS() +1),currentWeight, firstStep);
+        returns[1] = getNextLocation(currentDepth,new Agent("2", currentLocation.getQ() +1, currentLocation.getR() -1, currentLocation.getS()),currentWeight, firstStep);
+        returns[2] = getNextLocation(currentDepth,new Agent("3", currentLocation.getQ() +1, currentLocation.getR(), currentLocation.getS() -1),currentWeight, firstStep);
+        returns[3] = getNextLocation(currentDepth,new Agent("4", currentLocation.getQ(), currentLocation.getR() +1, currentLocation.getS() -1),currentWeight, firstStep);
+        returns[4] = getNextLocation(currentDepth,new Agent("5", currentLocation.getQ() -1, currentLocation.getR() +1, currentLocation.getS()),currentWeight, firstStep);
+        returns[5] = getNextLocation(currentDepth,new Agent("6", currentLocation.getQ() -1, currentLocation.getR(), currentLocation.getS() +1),currentWeight, firstStep);
+
+        for(int i = 0; i < returns.length; i++){
+            System.out.println("Returns "+ i+ " " + returns[i][0] + ", weight " + returns[i][1]);
+        }
+
+        int minWeight = Integer.MAX_VALUE;
+        Agent maxMove = (Agent) returns[0][0];
+        for(int i = 0; i < returns.length-1; i++) {
+            int thisWeight = (int) returns[i][1] + calcWeight(currentLocation);
+            if((int) thisWeight < minWeight){
+                minWeight = thisWeight;
+                maxMove = (Agent) returns[i][0];
+                firstStep = (Agent) returns[i][2];
+            }
+        }
+
+        currentWeight += minWeight;
+        Object[] newReturns = new Object[3];
+        
+        System.out.println("Recursion - Current depth: " + ++currentDepth + " minWeight: " + minWeight + " maxMove: " + maxMove + " firststep: " + firstStep);
+        
+        newReturns[1] = minWeight;
+        newReturns[0] = maxMove;
+        newReturns[2] = firstStep;
+        return newReturns;
+    }
+    
 }
 
 /*
