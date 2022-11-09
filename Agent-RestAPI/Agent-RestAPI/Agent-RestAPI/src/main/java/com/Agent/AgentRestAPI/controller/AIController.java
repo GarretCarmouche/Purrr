@@ -69,6 +69,17 @@ public class AIController {
         returnMap.put("s", ""+newLocation.getS());
         return returnMap;
     }
+
+
+    @GetMapping("/getagentlocationonly")
+    public Map<String, Object> getCatLocationOnly() {
+        return catAi.getCatLocation();
+    }
+
+
+
+
+
     /*
      * Name: moveCat
      * Purpose: To move the cat agent to a new location
