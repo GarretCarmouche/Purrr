@@ -1,7 +1,10 @@
 import React from "react";
 import { Hexagon } from "react-hexgrid";
 import { useDispatch, useSelector } from "react-redux";
-import { changeBlack, addWallRequest } from "../store/girdSlice";
+import { changeBlack,getCatRequestOnly, changeYello, addWallRequest } from "../store/girdSlice";
+
+
+
 
 /*
 NAME: HexagonalTile
@@ -19,6 +22,12 @@ const HexagonTile = ({ q, r, s }) => {
 
   //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
+
+
+  const handleCatLastMove = async () => {
+    let val = await dispatch(getCatRequestOnly()).unwrap();
+    dispatch(changeYello(val));
+  };
 
   /*
   NAME: changeColor
@@ -45,7 +54,11 @@ const HexagonTile = ({ q, r, s }) => {
           r={r}
           s={s}
           fill={tile[0].pattern}
-          onClick={() => changeColor()}
+          onClick={() => {
+            
+            handleCatLastMove()
+            changeColor()
+          }}
         />
       )}
     </>

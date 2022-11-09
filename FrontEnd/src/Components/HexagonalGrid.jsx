@@ -11,7 +11,7 @@ import {
 import HexagonTile from "./HexagonTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setSizeRequest, getCatRequest, changeCat } from "../store/girdSlice";
+import { setSizeRequest, getCatRequest, changeCat, changeYello } from "../store/girdSlice";
 
 /*
 This variable is an object that has a key used by the board state
@@ -76,6 +76,22 @@ const HexagonalGrid = () => {
     dispatch(changeCat(val));
   };
 
+
+   /*
+  NAME: handleCatMove
+  PARAMATERS: none
+  PURPOSE: This function dispatches an action to our redux store that requests the cats location
+  PRECONDITION: The user has blocked a tile
+  */
+  const handleCatLastMove = async () => {
+    let val = await dispatch(getCatRequest()).unwrap();
+    dispatch(changeYello(val));
+  };
+
+
+
+
+
   //This return statement is what is actually rendered by this component
   //Subcomponents that are rendered have props passed into them that include values, strings,
   //or functions that map handle events
@@ -85,7 +101,11 @@ const HexagonalGrid = () => {
         width={1400}
         height={750}
         viewBox="-50 -100 200 200"
-        onClick={() => handleCatMove()}
+        onClick={() =>
+        {
+        
+          handleCatMove()
+        }}
       >
         <Layout
           size={setSize(size)}

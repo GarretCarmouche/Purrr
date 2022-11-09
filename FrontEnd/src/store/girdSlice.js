@@ -62,6 +62,15 @@ export const getCatRequest = createAsyncThunk("getCatRequest", async () => {
   return response.json();
 });
 
+export const getCatRequestOnly = createAsyncThunk("getCatRequestonly", async () => {
+  const getReq = "http://localhost:8080/aicontroller/getagentlocationonly";
+  const response = await fetch(getReq);
+  return response.json();
+});
+
+
+
+
 //The grid slice variable handles non-async actions the user dispatches
 export const gridSlice = createSlice({
   name: "gird",
@@ -96,6 +105,16 @@ export const gridSlice = createSlice({
       );
       return { grid: newGrid, size: grid.size };
     },
+    //This is where we would change a grid slice back to yello
+    changeYello: (grid, action) => {
+      const { q, r, s } = { ...action.payload };
+      const newGrid = grid.grid.map((gridEl) =>
+        gridEl.q == q && gridEl.r == r && gridEl.s == s
+          ? { q: q, r: r, s: s, pattern: "yellow" }
+          : gridEl
+      );
+      return { grid: newGrid, size: grid.size };
+    },
 
     /*
     NAME: initializeBoard
@@ -110,6 +129,6 @@ export const gridSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { changeBlack, changeCat, initializeBoard } = gridSlice.actions;
+export const { changeBlack, changeCat, changeYello, initializeBoard } = gridSlice.actions;
 
 export default gridSlice.reducer;
