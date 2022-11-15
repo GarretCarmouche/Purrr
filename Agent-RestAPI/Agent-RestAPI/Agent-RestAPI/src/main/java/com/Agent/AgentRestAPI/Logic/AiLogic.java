@@ -214,7 +214,7 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
         returns[1] = minWeight;
         returns[2] = firstStep;
 
-        System.out.println("Base - Current depth: " + currentDepth + " minWeight: " + minWeight + " maxMove: " + maxMove);
+        //System.out.println("Base - Current depth: " + currentDepth + " minWeight: " + minWeight + " maxMove: " + maxMove);
         return returns;
 
      }else{
@@ -227,9 +227,9 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
         returns[4] = getNextLocation(currentDepth,new Agent("5", currentLocation.getQ() -1, currentLocation.getR() +1, currentLocation.getS()),currentWeight, firstStep);
         returns[5] = getNextLocation(currentDepth,new Agent("6", currentLocation.getQ() -1, currentLocation.getR(), currentLocation.getS() +1),currentWeight, firstStep);
 
-        for(int i = 0; i < returns.length; i++){
+        /*for(int i = 0; i < returns.length; i++){
             System.out.println("Returns "+ i+ " " + returns[i][0] + ", weight " + returns[i][1]);
-        }
+        }*/
 
         int minWeight = Integer.MAX_VALUE;
         Agent maxMove = (Agent) returns[0][0];
@@ -245,7 +245,7 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
         currentWeight += minWeight;
         Object[] newReturns = new Object[3];
         
-        System.out.println("Recursion - Current depth: " + ++currentDepth + " minWeight: " + minWeight + " maxMove: " + maxMove + " firststep: " + firstStep);
+        //System.out.println("Recursion - Current depth: " + ++currentDepth + " minWeight: " + minWeight + " maxMove: " + maxMove + " firststep: " + firstStep);
         
         newReturns[1] = minWeight;
         newReturns[0] = maxMove;

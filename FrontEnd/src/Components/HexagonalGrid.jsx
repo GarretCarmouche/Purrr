@@ -35,8 +35,7 @@ PURPOSE: This function returns a size for the tiles depending on the size of the
 PRECONDITION: The size of the board has been selected by the user
 */
 const setSize = (size) => {
-  if (size === 7) return { x: 7, y: 7 };
-  return { x: 10, y: 10 };
+  return {x: 48/size, y: 48/size};
 };
 
 /*
@@ -111,7 +110,7 @@ const HexagonalGrid = () => {
           size={setSize(size)}
           flat={true}
           spacing={1.05}
-          origin={{ x: 0, y: 0 }}
+          origin={{ x: 100, y: 0 }}
         >
           {hexArray.map(({ q, r, s }) => (
             <HexagonTile q={q} r={r} s={s} key={q + " " + r + " " + s} />
