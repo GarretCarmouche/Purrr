@@ -16,6 +16,8 @@ import { setSizeRequest, getCatRequest, changeCat, changeYello } from "../store/
 This variable is an object that has a key used by the board state
 and a link to the image that the tile needs to render corresponding to that key
 */
+
+var runCounter = 2;
 const patterns = [
   {
     id: "cat",
@@ -44,6 +46,7 @@ PURPOSE: This function returns a react component representing the game board
 PRECONDITION: The user has selected a size and a difficulty
 */
 const HexagonalGrid = () => {
+  runCounter = runCounter - 1;
   //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
 
@@ -112,8 +115,8 @@ const HexagonalGrid = () => {
           spacing={1.05}
           origin={{ x: 100, y: 0 }}
         >
-          {hexArray.map(({ q, r, s, difficulty }) => (
-            <HexagonTile q={q} r={r} s={s} difficulty = {"Easy"} key={q + " " + r + " " + s} />
+          {hexArray.map(({ q, r, s, difficulty, firstRun }) => (
+            <HexagonTile q={q} r={r} s={s} difficulty = {"Easy"} firstRun = {runCounter === 1} key={q + " " + r + " " + s} />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (

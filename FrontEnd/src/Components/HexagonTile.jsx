@@ -4,37 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeBlack,getCatRequestOnly, changeYello, addWallRequest } from "../store/girdSlice";
 
 var setBlack = false;
-
 /*
 NAME: HexagonalTile
 PARAMATERS: q,r,s coordinates
 PURPOSE: This function returns a react component representing an individual tile
 PRECONDITION: The user has selected a size and a difficulty
 */
-const HexagonTile = ({ q, r, s, difficulty }) => {
-  console.log(difficulty);
-  //The tile variable selects the tile corresponding to our q,r,s coordinates from our redux store
-  if(difficulty === "Easy"){
-    setBlack = Math.random() > .5;
-  }else if(difficulty === "Medium"){
-    setBlack = Math.random() > .5;
-  }else if(difficulty === "Hard"){
-    setBlack = Math.random() > .5;
-  }
-  const tile = useSelector((state) =>
-    state.grid.grid.filter(
-      (gridEl) => gridEl.q === q && gridEl.r === r && gridEl.s === s
-    )
-  );
-
+const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
   //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
-
-
-  const handleCatLastMove = async () => {
-    let val = await dispatch(getCatRequestOnly()).unwrap();
-    dispatch(changeYello(val));
-  };
 
   /*
   NAME: changeColor
@@ -50,10 +28,47 @@ const HexagonTile = ({ q, r, s, difficulty }) => {
     req();
   };
 
+  console.log(q,r,s);
+  console.log(firstRun);
+  //console.log(difficulty);
+  //The tile variable selects the tile corresponding to our q,r,s coordinates from our redux store
+  if(firstRun){
+    if(difficulty === "Easy"){
+      setBlack = Math.random() > .9;
+      if(setBlack){
+        changeColor();
+      }
+    }else if(difficulty === "Medium"){
+      setBlack = Math.random() > .9;
+      if(setBlack){
+        changeColor();
+      }
+    }else if(difficulty === "Hard"){
+      setBlack = Math.random() > .9;
+      if(setBlack){
+        changeColor();
+      }
+    }
+  }
+  
+  const tile = useSelector((state) =>
+    state.grid.grid.filter(
+      (gridEl) => gridEl.q === q && gridEl.r === r && gridEl.s === s
+    )
+  );
+
+
+  const handleCatLastMove = async () => {
+    let val = await dispatch(getCatRequestOnly()).unwrap();
+    dispatch(changeYello(val));
+  };
+
   //This return statement is what is actually rendered by the component
 
   var pattern = tile[0].pattern
-  if(setBlack){pattern = null}
+  //console.log(pattern);
+  //console.log(tile.pattern);
+  //if(setBlack){pattern = null;}
   return (
     <>
       {tile.pattern === null ? (

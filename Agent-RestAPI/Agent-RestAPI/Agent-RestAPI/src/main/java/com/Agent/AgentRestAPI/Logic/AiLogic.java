@@ -22,7 +22,7 @@ public class AiLogic
     private Agent cat;
     private List<Agent> wallList = new ArrayList<>();
     private int boardSize;
-    private int depth = 4; // Default depth
+    private int depth = 7; // Default depth
     
 
 
@@ -112,7 +112,7 @@ public Map<String, Object> getCatLocation() {
  */
 public  void addWall(Agent wall)
 {
-    //System.out.println("New Wall added location : "+wall.getQ()+" " + wall.getR()+" " + wall.getS());
+    System.out.println("New Wall added location : "+wall.getQ()+" " + wall.getR()+" " + wall.getS());
     wallList.add(wall);
 
 }
