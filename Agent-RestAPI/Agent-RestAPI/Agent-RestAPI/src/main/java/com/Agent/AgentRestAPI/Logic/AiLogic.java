@@ -22,7 +22,7 @@ public class AiLogic
     private Agent cat;
     private List<Agent> wallList = new ArrayList<>();
     private int boardSize;
-    private int depth = 4; // Default depth
+    private int depth = 7; // Default depth
     
 
 

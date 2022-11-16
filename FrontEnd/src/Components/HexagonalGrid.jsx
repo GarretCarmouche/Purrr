@@ -12,11 +12,12 @@ import HexagonTile from "./HexagonTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setSizeRequest, getCatRequest, changeCat, changeYello } from "../store/girdSlice";
-
 /*
 This variable is an object that has a key used by the board state
 and a link to the image that the tile needs to render corresponding to that key
 */
+
+var runCounter = 2;
 const patterns = [
   {
     id: "cat",
@@ -45,6 +46,7 @@ PURPOSE: This function returns a react component representing the game board
 PRECONDITION: The user has selected a size and a difficulty
 */
 const HexagonalGrid = () => {
+  runCounter = runCounter - 1;
   //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
 
@@ -53,6 +55,7 @@ const HexagonalGrid = () => {
 
   //The size variable grabs the board size from our redux store
   const size = useSelector((state) => state.grid).size;
+  const difficulty = useSelector((state) => state.grid).difficulty;
 
   //This is a react hook that is executed on the initial rendering of this component
   //It dispatches an action to our redux store that performs an api request
@@ -112,8 +115,8 @@ const HexagonalGrid = () => {
           spacing={1.05}
           origin={{ x: 100, y: 0 }}
         >
-          {hexArray.map(({ q, r, s }) => (
-            <HexagonTile q={q} r={r} s={s} key={q + " " + r + " " + s} />
+          {hexArray.map(({ q, r, s, difficulty, firstRun }) => (
+            <HexagonTile q={q} r={r} s={s} difficulty = {"Easy"} firstRun = {runCounter === 1} key={q + " " + r + " " + s} />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (

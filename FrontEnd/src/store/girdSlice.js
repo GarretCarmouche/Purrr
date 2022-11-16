@@ -16,7 +16,7 @@ const hexArr = (size) => {
     let end = x > y ? x : y;
 
     for (let j = start, k = end; j <= end; j++, k--) {
-      hexCordsArr.push({ q: i, r: j, s: k, pattern: "yellow" });
+      hexCordsArr.push({ q: i, r: j, s: k, pattern: "yellow"});
     }
   }
   return hexCordsArr;
