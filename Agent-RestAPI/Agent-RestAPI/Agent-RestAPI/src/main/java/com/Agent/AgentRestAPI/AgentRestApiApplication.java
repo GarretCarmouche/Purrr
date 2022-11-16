@@ -25,7 +25,7 @@ public class AgentRestApiApplication implements WebMvcConfigurer {
 	 * Param: String[]args : A String argument
 	 * Return: void : none
 	 */
-	public static void main(String[] args) {
+	 public static void main(String[] args) {
 		SpringApplication.run(AgentRestApiApplication.class, args);
 	}
 	/*

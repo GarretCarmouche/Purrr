@@ -3,8 +3,7 @@ import { Hexagon } from "react-hexgrid";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBlack,getCatRequestOnly, changeYello, addWallRequest } from "../store/girdSlice";
 
-
-
+var setBlack = false;
 
 /*
 NAME: HexagonalTile
@@ -12,8 +11,16 @@ PARAMATERS: q,r,s coordinates
 PURPOSE: This function returns a react component representing an individual tile
 PRECONDITION: The user has selected a size and a difficulty
 */
-const HexagonTile = ({ q, r, s }) => {
+const HexagonTile = ({ q, r, s, difficulty }) => {
+  console.log(difficulty);
   //The tile variable selects the tile corresponding to our q,r,s coordinates from our redux store
+  if(difficulty === "Easy"){
+    setBlack = Math.random() > .5;
+  }else if(difficulty === "Medium"){
+    setBlack = Math.random() > .5;
+  }else if(difficulty === "Hard"){
+    setBlack = Math.random() > .5;
+  }
   const tile = useSelector((state) =>
     state.grid.grid.filter(
       (gridEl) => gridEl.q === q && gridEl.r === r && gridEl.s === s
@@ -44,6 +51,9 @@ const HexagonTile = ({ q, r, s }) => {
   };
 
   //This return statement is what is actually rendered by the component
+
+  var pattern = tile[0].pattern
+  if(setBlack){pattern = null}
   return (
     <>
       {tile.pattern === null ? (
@@ -53,7 +63,7 @@ const HexagonTile = ({ q, r, s }) => {
           q={q}
           r={r}
           s={s}
-          fill={tile[0].pattern}
+          fill={pattern}
           onClick={() => {
             
             handleCatLastMove()

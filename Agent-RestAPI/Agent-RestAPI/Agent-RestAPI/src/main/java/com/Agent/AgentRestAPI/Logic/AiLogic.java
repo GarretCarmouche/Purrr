@@ -112,7 +112,7 @@ public Map<String, Object> getCatLocation() {
  */
 public  void addWall(Agent wall)
 {
-    System.out.println("New Wall added location : "+wall.getQ()+" " + wall.getR()+" " + wall.getS());
+    //System.out.println("New Wall added location : "+wall.getQ()+" " + wall.getR()+" " + wall.getS());
     wallList.add(wall);
 
 }

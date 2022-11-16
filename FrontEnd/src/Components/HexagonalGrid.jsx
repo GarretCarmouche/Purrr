@@ -12,7 +12,6 @@ import HexagonTile from "./HexagonTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setSizeRequest, getCatRequest, changeCat, changeYello } from "../store/girdSlice";
-
 /*
 This variable is an object that has a key used by the board state
 and a link to the image that the tile needs to render corresponding to that key
@@ -53,6 +52,7 @@ const HexagonalGrid = () => {
 
   //The size variable grabs the board size from our redux store
   const size = useSelector((state) => state.grid).size;
+  const difficulty = useSelector((state) => state.grid).difficulty;
 
   //This is a react hook that is executed on the initial rendering of this component
   //It dispatches an action to our redux store that performs an api request
@@ -112,8 +112,8 @@ const HexagonalGrid = () => {
           spacing={1.05}
           origin={{ x: 100, y: 0 }}
         >
-          {hexArray.map(({ q, r, s }) => (
-            <HexagonTile q={q} r={r} s={s} key={q + " " + r + " " + s} />
+          {hexArray.map(({ q, r, s, difficulty }) => (
+            <HexagonTile q={q} r={r} s={s} difficulty = {"Easy"} key={q + " " + r + " " + s} />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (
