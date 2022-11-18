@@ -12,6 +12,7 @@ PURPOSE: This function returns a react component representing the startup screen
 POSTCONDITION: The redux store is set to a starting board size corresponding to what the user selects
 */
 const StartUp = () => {
+  const restBoard =useState(1)
   //Navigate allows us to change the path which allows us to change what the user sees
   const navigate = useNavigate();
 
