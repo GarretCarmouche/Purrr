@@ -78,11 +78,11 @@ const StartUp = () => {
         <div className="Size">
           <h1>Size</h1>
           <form name="sizeForm" onChange={handleSizeChange}>
-            <input type="radio" name="Size" value={3} />
-            Small
             <input type="radio" name="Size" value={5} />
+            Small
+            <input type="radio" name="Size" value={8} />
             Regular
-            <input type="radio" name="Size" value={7} />
+            <input type="radio" name="Size" value={12} />
             Large
           </form>
         </div>

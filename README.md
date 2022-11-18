@@ -21,9 +21,15 @@
 
 ## Running The Project, with minimal requirements
 ---
-- git clone to the intended directory to download to a machine, where you should be able to navigate to the root directory \Purr. In the root directory run the two batch files ("FrontTest.bat '',"PurrTest.bat") simultaneously. An instance of the application should start after configurations, producing two terminals running two local servers running the application, and the game on a chrome browser.
+- git clone to the intended directory to download to a machine, where you should be able to navigate to the root directory \Purr. In the root directory run the two batch files ("FrontTest.bat '',"PurrTest.bat") simultaneously. 
+
+- Run "npm install" in the FrontEnd directory
+
+- An instance of the application should start after configurations, producing two terminals running two local servers running the application, and the game on a chrome browser.
+
 
 ## Running the project, with developer requirements
+---
 - git clone to the intended directory to download to a machine, in Visual Studio Code navigate to the directory java\com\Agent\AgentRestAPI, where AgentRestApiApplication.java should be contained. Once the file is open in the editor it should configure on its own and allow it to be run inside the editor.
 - Once that is complete navigate to the directory \FrontEnd and open an instance of the terminal at that directory and run the command "npm start"
 
@@ -37,8 +43,7 @@
 - Make sure to run "npm install" in the FrontEnd directory to fix this issue.
 
 ## Test Cases Outcome
-
-
+---
 -What we found out at this version of the application the AI has a bias to move towards the positive q and negative r direction
 -The mapping needs to be worked out when backtracking to old positions, and remove old positions
 -Walls are being ignored if put right in front of the cat, this is due to synchronization

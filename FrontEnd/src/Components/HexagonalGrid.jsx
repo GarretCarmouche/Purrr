@@ -11,12 +11,13 @@ import {
 import HexagonTile from "./HexagonTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setSizeRequest, getCatRequest, changeCat } from "../store/girdSlice";
-
+import { setSizeRequest, getCatRequest, changeCat, changeYello } from "../store/girdSlice";
 /*
 This variable is an object that has a key used by the board state
 and a link to the image that the tile needs to render corresponding to that key
 */
+
+var runCounter = 2;
 const patterns = [
   {
     id: "cat",
@@ -35,8 +36,7 @@ PURPOSE: This function returns a size for the tiles depending on the size of the
 PRECONDITION: The size of the board has been selected by the user
 */
 const setSize = (size) => {
-  if (size === 7) return { x: 7, y: 7 };
-  return { x: 10, y: 10 };
+  return {x: 48/size, y: 48/size};
 };
 
 /*
@@ -46,6 +46,7 @@ PURPOSE: This function returns a react component representing the game board
 PRECONDITION: The user has selected a size and a difficulty
 */
 const HexagonalGrid = () => {
+  runCounter = runCounter - 1;
   //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
 
@@ -54,6 +55,7 @@ const HexagonalGrid = () => {
 
   //The size variable grabs the board size from our redux store
   const size = useSelector((state) => state.grid).size;
+  const difficulty = useSelector((state) => state.grid).difficulty;
 
   //This is a react hook that is executed on the initial rendering of this component
   //It dispatches an action to our redux store that performs an api request
@@ -76,6 +78,22 @@ const HexagonalGrid = () => {
     dispatch(changeCat(val));
   };
 
+
+   /*
+  NAME: handleCatMove
+  PARAMATERS: none
+  PURPOSE: This function dispatches an action to our redux store that requests the cats location
+  PRECONDITION: The user has blocked a tile
+  */
+  const handleCatLastMove = async () => {
+    let val = await dispatch(getCatRequest()).unwrap();
+    dispatch(changeYello(val));
+  };
+
+
+
+
+
   //This return statement is what is actually rendered by this component
   //Subcomponents that are rendered have props passed into them that include values, strings,
   //or functions that map handle events
@@ -85,16 +103,20 @@ const HexagonalGrid = () => {
         width={1400}
         height={750}
         viewBox="-50 -100 200 200"
-        onClick={() => handleCatMove()}
+        onClick={() =>
+        {
+        
+          handleCatMove()
+        }}
       >
         <Layout
           size={setSize(size)}
           flat={true}
           spacing={1.05}
-          origin={{ x: 0, y: 0 }}
+          origin={{ x: 100, y: 0 }}
         >
-          {hexArray.map(({ q, r, s }) => (
-            <HexagonTile q={q} r={r} s={s} key={q + " " + r + " " + s} />
+          {hexArray.map(({ q, r, s, difficulty, firstRun }) => (
+            <HexagonTile q={q} r={r} s={s} difficulty = {"Easy"} firstRun = {runCounter === 1} key={q + " " + r + " " + s} />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (
