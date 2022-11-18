@@ -8,10 +8,13 @@ import {
   Path,
   Hex,
 } from "react-hexgrid";
+import "../HexagonalGrid.css";
 import HexagonTile from "./HexagonTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setSizeRequest, getCatRequest, changeCat, changeYello } from "../store/girdSlice";
+import { useNavigate } from "react-router-dom";
+
 /*
 This variable is an object that has a key used by the board state
 and a link to the image that the tile needs to render corresponding to that key
@@ -56,6 +59,8 @@ const HexagonalGrid = () => {
   //The size variable grabs the board size from our redux store
   const size = useSelector((state) => state.grid).size;
   const difficulty = useSelector((state) => state.grid).difficulty;
+  const boardRun = useSelector((state) => state.grid).boardRun
+
 
   //This is a react hook that is executed on the initial rendering of this component
   //It dispatches an action to our redux store that performs an api request
@@ -77,6 +82,13 @@ const HexagonalGrid = () => {
     let val = await dispatch(getCatRequest()).unwrap();
     dispatch(changeCat(val));
   };
+  const navigate = useNavigate();
+   const handleSubmitClick = () => {
+
+     //dispatch(initializeBoard(size));
+     navigate("/startup");
+   };
+
 
 
    /*
@@ -123,7 +135,13 @@ const HexagonalGrid = () => {
           <Pattern id={id} link={link} key={id} />
         ))}
       </HexGrid>
+      <div id ="ResetButton" className="Reset">
+          <button type="button" id="submitBTN" onClick={handleSubmitClick}>
+            Rest
+          </button>
+        </div>
     </>
+
   );
 };
 

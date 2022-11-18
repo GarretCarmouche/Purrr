@@ -14,6 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index element={<StartUp />} />
+        <Route path="/startup" element={<StartUp />} />
         <Route path="/grid" element={<HexagonalGrid />} />
         <Route path="/GameOver" element={<GameOver />} />
       </Routes>
