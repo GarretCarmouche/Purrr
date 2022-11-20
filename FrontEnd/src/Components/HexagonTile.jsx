@@ -1,6 +1,7 @@
 import React from "react";
 import { Hexagon } from "react-hexgrid";
 import { useDispatch, useSelector } from "react-redux";
+import { gamerun } from "../store/GameState";
 import { changeBlack,getCatRequestOnly, changeYello, addWallRequest } from "../store/girdSlice";
 
 var setBlack = false;
@@ -13,7 +14,7 @@ PRECONDITION: The user has selected a size and a difficulty
 const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
   //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
-
+  const boardRun = useSelector((state)=>state.boardState.boardRun)
   /*
   NAME: changeColor
   PURPOSE: This function changes the user tile to black, 
@@ -21,6 +22,8 @@ const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
   */
   const changeColor = () => {
     const gridId = { q: q, r: r, s: s };
+    dispatch(gamerun())
+    console.log("This is the current state of the board at the at tile:",boardRun)
     dispatch(changeBlack(gridId));
     const req = async () => {
       await dispatch(addWallRequest(gridId)).unwrap();
@@ -28,8 +31,8 @@ const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
     req();
   };
 
-  console.log(q,r,s);
-  console.log(firstRun);
+  //console.log(q,r,s);
+  //console.log(firstRun);
   //console.log(difficulty);
   //The tile variable selects the tile corresponding to our q,r,s coordinates from our redux store
   if(firstRun){
