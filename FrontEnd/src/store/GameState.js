@@ -1,4 +1,14 @@
-import { createSlice, CreateSliceOptions } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk, CreateSliceOptions } from "@reduxjs/toolkit";
+
+
+
+export const resetGame = createAsyncThunk(
+    "resetGame",
+    async () => {
+      const getReq = `http://localhost:8080/aicontroller/reset`;
+      const response = await fetch(getReq);
+    }
+  );
 
 export const boardStateSlice = createSlice({ 
     name:"boardState", 
