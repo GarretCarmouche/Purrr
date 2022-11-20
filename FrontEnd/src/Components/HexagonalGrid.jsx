@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setSizeRequest, getCatRequest, changeCat, changeYello } from "../store/girdSlice";
 import { useNavigate } from "react-router-dom";
+import { reset,gamerun } from "../store/GameState";
 
 /*
 This variable is an object that has a key used by the board state
@@ -21,6 +22,7 @@ and a link to the image that the tile needs to render corresponding to that key
 */
 
 var runCounter = 2;
+console.log("This is the run counter at the begining",runCounter)
 const patterns = [
   {
     id: "cat",
@@ -49,17 +51,19 @@ PURPOSE: This function returns a react component representing the game board
 PRECONDITION: The user has selected a size and a difficulty
 */
 const HexagonalGrid = () => {
+  
   runCounter = runCounter - 1;
+  console.log("This is the runcounter during building the board",runCounter)
   //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
-
+  const boardRun = useSelector((state)=>state.boardState.boardRun)
   //The hexArray variable grabs the current board from our redux store
   const hexArray = useSelector((state) => state.grid).grid;
 
   //The size variable grabs the board size from our redux store
   const size = useSelector((state) => state.grid).size;
   const difficulty = useSelector((state) => state.grid).difficulty;
-  const boardRun = useSelector((state) => state.grid).boardRun
+
 
 
   //This is a react hook that is executed on the initial rendering of this component
@@ -81,11 +85,14 @@ const HexagonalGrid = () => {
   const handleCatMove = async () => {
     let val = await dispatch(getCatRequest()).unwrap();
     dispatch(changeCat(val));
+   
   };
   const navigate = useNavigate();
    const handleSubmitClick = () => {
 
-     //dispatch(initializeBoard(size));
+    dispatch(reset())
+    
+    console.log("This is the current state of the board at the at grid:",boardRun)
      navigate("/startup");
    };
 

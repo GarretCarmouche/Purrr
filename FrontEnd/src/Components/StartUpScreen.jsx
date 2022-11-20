@@ -1,9 +1,10 @@
 import React from "react";
 import "../startUpStyle.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initializeBoard } from "../store/girdSlice";
 import { useNavigate } from "react-router-dom";
+import { reset,gamerun } from "../store/GameState";
 
 /*
 NAME: StartUp
@@ -12,12 +13,15 @@ PURPOSE: This function returns a react component representing the startup screen
 POSTCONDITION: The redux store is set to a starting board size corresponding to what the user selects
 */
 const StartUp = () => {
-  const restBoard =useState(1)
+
   //Navigate allows us to change the path which allows us to change what the user sees
   const navigate = useNavigate();
 
   //The dispatch variable enables us to interact with our redux store by dispatching actions
   const dispatch = useDispatch();
+
+  const boardRun = useSelector((state)=>state.boardState.boardRun)
+  
 
   //The difficulty variable represents the difficulty selected by the user
   //Set difficulty is a function to change the difficulty value
@@ -56,7 +60,8 @@ const StartUp = () => {
   const handleSubmitClick = () => {
     if (difficulty === null) return;
     if (size === null) return;
-
+    dispatch(gamerun())
+    console.log("This is the current state of the board at the start screen:",boardRun)
     dispatch(initializeBoard(size));
     navigate("/grid");
   };
