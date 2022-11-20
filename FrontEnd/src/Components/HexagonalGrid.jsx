@@ -135,7 +135,7 @@ const HexagonalGrid = () => {
           origin={{ x: 100, y: 0 }}
         >
           {hexArray.map(({ q, r, s, difficulty, firstRun }) => (
-            <HexagonTile q={q} r={r} s={s} difficulty = {"Easy"} firstRun = {runCounter === 1} key={q + " " + r + " " + s} />
+            <HexagonTile q={q} r={r} s={s} difficulty = {"Easy"} firstRun = {boardRun === 1} key={q + " " + r + " " + s} />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (
