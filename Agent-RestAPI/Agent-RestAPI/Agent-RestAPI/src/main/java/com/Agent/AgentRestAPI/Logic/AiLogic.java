@@ -40,6 +40,14 @@ public AiLogic()
     boardSize=0;
 }
 
+//Temp function is in testing phase
+public void restGameInstance()
+{
+    cat= new Agent();
+    wallList =new ArrayList<>();
+    boardSize=0;
+}
+
 /*
  * Name: setBoardSize
  * Purpose: Assign the board size for an instance of our object, should only be called once during runtime

@@ -37,6 +37,17 @@ public class AIController {
         this.catAi = catAi;
 
     }
+
+
+    //Endpoint is being tested 
+    @GetMapping("/reset")
+    public void resetGame()
+    {
+        catAi.restGameInstance();
+    }
+
+
+
     /*
      * Name: sayHello
      * Purpose: To test Api endpoint, seeing if a client is receiving the data in JSON format, test API Call

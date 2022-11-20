@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeBoard } from "../store/girdSlice";
 import { useNavigate } from "react-router-dom";
-import { reset,gamerun } from "../store/GameState";
+import { reset,gamerun, resetGame} from "../store/GameState";
 
 /*
 NAME: StartUp
@@ -57,9 +57,15 @@ const StartUp = () => {
             It also navigates the user to the place where the grid is rendered.
   PRECONDITION: The user clicks the submit button
   */
-  const handleSubmitClick = () => {
+  const handleSubmitClick = async () => {
     if (difficulty === null) return;
     if (size === null) return;
+    //Testing to see if AI cat agent reset
+    let val = await dispatch(resetGame()).unwrap();
+
+
+
+
     dispatch(gamerun())
     console.log("This is the current state of the board at the start screen:",boardRun)
     dispatch(initializeBoard(size));
