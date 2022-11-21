@@ -74,7 +74,7 @@ export const getCatRequestOnly = createAsyncThunk("getCatRequestonly", async () 
 //The grid slice variable handles non-async actions the user dispatches
 export const gridSlice = createSlice({
   name: "gird",
-  initialState,
+  initialState:{diff:"Easy"},
   reducers: {
     /*
     NAME: changeBlack
@@ -115,20 +115,26 @@ export const gridSlice = createSlice({
       );
       return { grid: newGrid, size: grid.size };
     },
+    //This is a test not complete
+    initializeDiff: (state, action) => {
+      state.difficulty=action.payload
+    },
 
     /*
     NAME: initializeBoard
     PARAMETERS: grid, action
     PURPOSE: This function initializes the redux store based on the size given.
     */
-    initializeBoard: (grid, action) => {
+    initializeBoard: (grid, action, difficultyAction) => {
       const size = parseInt(action.payload);
-      return { grid: hexArr(size), size: size };
+      console.log(action.payload);
+      //const difficulty = (difficultyAction.payload)
+      return { grid: hexArr(size), size: size};
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { changeBlack, changeCat, changeYello, initializeBoard } = gridSlice.actions;
+export const { changeBlack, changeCat, changeYello, initializeBoard, initializeDiff } = gridSlice.actions;
 
 export default gridSlice.reducer;

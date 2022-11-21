@@ -3,6 +3,7 @@ import "../startUpStyle.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeBoard } from "../store/girdSlice";
+import { initializeDiff } from "../store/girdSlice";
 import { useNavigate } from "react-router-dom";
 import { reset,gamerun, resetGame} from "../store/GameState";
 
@@ -38,6 +39,7 @@ const StartUp = () => {
   PRECONDITION: The user changes the difficulty
   */
   const handleDifficultyChange = (event) => {
+    console.log("Handle difficulty change " + event.target.value);
     setDifficulty(event.target.value);
   };
 
@@ -69,6 +71,7 @@ const StartUp = () => {
     dispatch(gamerun())
     console.log("This is the current state of the board at the start screen:",boardRun)
     dispatch(initializeBoard(size));
+    dispatch(initializeDiff(difficulty));
     navigate("/grid");
   };
 
@@ -79,11 +82,11 @@ const StartUp = () => {
         <div className="Difficulty">
           <h1>Difficulty</h1>
           <form name="difficultyForm" onChange={handleDifficultyChange}>
-            <input type="radio" name="Difficulty" value="Easy" />
+            <input type="radio" name="Difficulty" value={"Easy"} />
             Easy
-            <input type="radio" name="Difficulty" value="Medium" />
+            <input type="radio" name="Difficulty" value={"Medium"} />
             Medium
-            <input type="radio" name="Difficulty" value="Hard" />
+            <input type="radio" name="Difficulty" value={"Hard"} />
             Hard
           </form>
         </div>

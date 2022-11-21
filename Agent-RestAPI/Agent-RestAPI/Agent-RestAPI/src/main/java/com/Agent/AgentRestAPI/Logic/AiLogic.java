@@ -22,7 +22,7 @@ public class AiLogic
     private Agent cat;
     private List<Agent> wallList = new ArrayList<>();
     private int boardSize;
-    private int depth = 7; // Default depth
+    private int depth = 6; // Default depth
     
 
 
@@ -275,10 +275,30 @@ public int calcWeight(Agent location){
     if(isCellBlocked(location)){
         return 1000;
     }
+
+    
+
+    int weight = 0;
     
     int minDist = Math.min(location.getS(), location.getQ());
     minDist = Math.min(minDist,location.getR());
-    return minDist;
+    weight += minDist;
+
+    Agent[] sides = new Agent[6];
+    sides[0] = new Agent("1", location.getQ(), location.getR() -1, location.getS() +1);
+    sides[1] = new Agent("2", location.getQ() +1, location.getR() -1, location.getS());
+    sides[2] = new Agent("3", location.getQ() +1, location.getR(), location.getS() -1);
+    sides[3] = new Agent("4", location.getQ(), location.getR() +1, location.getS() -1);
+    sides[4] = new Agent("5", location.getQ() -1, location.getR() +1, location.getS());
+    sides[5] = new Agent("6", location.getQ() -1, location.getR(), location.getS() +1);
+
+    for(int i = 0; i < sides.length; i++){
+        if(isCellBlocked(sides[i])){
+            weight += 1;
+        }
+    }
+
+    return weight;
 }
 
 
