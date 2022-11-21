@@ -62,7 +62,7 @@ const HexagonalGrid = () => {
 
   //The size variable grabs the board size from our redux store
   const size = useSelector((state) => state.grid).size;
-  const difficulty = useSelector((state) => state.grid).difficulty;
+  const diff = useSelector((state) => state.grid).difficulty;
 
 
 
@@ -135,7 +135,8 @@ const HexagonalGrid = () => {
           origin={{ x: 100, y: 0 }}
         >
           {hexArray.map(({ q, r, s, difficulty, firstRun }) => (
-            <HexagonTile q={q} r={r} s={s} difficulty = {"Easy"} firstRun = {boardRun === 1} key={q + " " + r + " " + s} />
+            
+            <HexagonTile q={q} r={r} s={s} difficulty = {diff} firstRun = {boardRun === 1} key={q + " " + r + " " + s} />
           ))}
         </Layout>
         {patterns.map(({ id, link }) => (
