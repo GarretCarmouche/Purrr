@@ -7,7 +7,7 @@ PURPOSE: This function generates an array of objects with q,r,s, and pattern val
 */
 const hexArr = (size) => {
   let hexCordsArr = [];
-
+  hexCordsArr.push({q:0,r:0,s:0,pattern:"cat"});
   for (let i = size * -1; i <= size; i++) {
     let x = i <= 0 ? size : -1 * size;
     let y = -1 * (x + i);
@@ -19,6 +19,8 @@ const hexArr = (size) => {
       hexCordsArr.push({ q: i, r: j, s: k, pattern: "yellow"});
     }
   }
+    //This is being tested to see if this position can be hard coded at generation
+   
   return hexCordsArr;
 };
 
