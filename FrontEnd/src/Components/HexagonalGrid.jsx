@@ -12,7 +12,7 @@ import "../HexagonalGrid.css";
 import HexagonTile from "./HexagonTile";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setSizeRequest, getCatRequest, changeCat, changeYello } from "../store/girdSlice";
+import { setSizeRequest, getCatRequest, changeCat, changeYello, setDifficultyRequest } from "../store/girdSlice";
 import { useNavigate } from "react-router-dom";
 import { reset,gamerun } from "../store/GameState";
 
@@ -71,6 +71,7 @@ const HexagonalGrid = () => {
   useEffect(() => {
     const initRequest = async () => {
       await dispatch(setSizeRequest(size)).unwrap();
+      await dispatch(setDifficultyRequest(difficulty)).unwrap();
     };
 
     initRequest();
