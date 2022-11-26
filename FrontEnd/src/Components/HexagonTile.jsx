@@ -23,7 +23,7 @@ const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
   const changeColor = () => {
     const gridId = { q: q, r: r, s: s };
     dispatch(gamerun())
-    console.log("This is the current state of the board at the at tile:",boardRun)
+    //console.log("This is the current state of the board at the at tile:",boardRun)
     dispatch(changeBlack(gridId));
     const req = async () => {
       await dispatch(addWallRequest(gridId)).unwrap();
@@ -33,11 +33,11 @@ const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
 
   //console.log(q,r,s);
   //console.log(firstRun);
-  //console.log(difficulty);
+  //console.log("Difficulty:" + difficulty);
   //The tile variable selects the tile corresponding to our q,r,s coordinates from our redux store
   if(firstRun){
     if(difficulty === "Easy"){
-      setBlack = Math.random() > .9;
+      setBlack = Math.random() > .85;
       if(setBlack){
         changeColor();
       }
@@ -47,7 +47,7 @@ const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
         changeColor();
       }
     }else if(difficulty === "Hard"){
-      setBlack = Math.random() > .9;
+      setBlack = Math.random() > .95;
       if(setBlack){
         changeColor();
       }
