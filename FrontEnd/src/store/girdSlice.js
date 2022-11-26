@@ -25,7 +25,7 @@ const hexArr = (size) => {
 };
 
 //This is the default state the redux store uses. This is used even before the user selects a size.
-const initialState = { grid: hexArr(3), size: 3 };
+const initialState = { grid: hexArr(3), size: 3, difficulty: "Easy" };
 
 /*
 NAME: setSizeRequest
@@ -36,6 +36,19 @@ export const setSizeRequest = createAsyncThunk(
   "setSizeRequest",
   async (size) => {
     const getReq = `http://localhost:8080/aicontroller/setboardsize?size=${size}`;
+    const response = await fetch(getReq);
+  }
+);
+
+/*
+NAME: setDifficultyRequest
+PARAMATERS: difficulty
+PURPOSE: This function calls our backend api and tells them the game difficulty
+*/
+export const setDifficultyRequest = createAsyncThunk(
+  "setDifficultyRequest",
+  async (difficulty) => {
+    const getReq = `http://localhost:8080/aicontroller/setdifficulty?difficulty=${difficulty}`;
     const response = await fetch(getReq);
   }
 );
@@ -90,7 +103,7 @@ export const gridSlice = createSlice({
           ? { q: q, r: r, s: s, pattern: null }
           : gridEl
       );
-      return { grid: newGrid, size: grid.size };
+      return { grid: newGrid, size: grid.size, difficulty: grid.difficulty};
     },
 
     /*
@@ -105,7 +118,7 @@ export const gridSlice = createSlice({
           ? { q: q, r: r, s: s, pattern: "cat" }
           : gridEl
       );
-      return { grid: newGrid, size: grid.size };
+      return { grid: newGrid, size: grid.size, difficulty: grid.difficulty};
     },
     //This is where we would change a grid slice back to yello
     changeYello: (grid, action) => {
@@ -115,7 +128,7 @@ export const gridSlice = createSlice({
           ? { q: q, r: r, s: s, pattern: "yellow" }
           : gridEl
       );
-      return { grid: newGrid, size: grid.size };
+      return { grid: newGrid, size: grid.size, difficulty: grid.difficulty};
     },
     //This is a test not complete
     initializeDiff: (state, action) => {
@@ -127,11 +140,12 @@ export const gridSlice = createSlice({
     PARAMETERS: grid, action
     PURPOSE: This function initializes the redux store based on the size given.
     */
-    initializeBoard: (grid, action, difficultyAction) => {
-      const size = parseInt(action.payload);
-      console.log(action.payload);
-      //const difficulty = (difficultyAction.payload)
-      return { grid: hexArr(size), size: size};
+    
+    initializeBoard: (grid, action) => {
+      const size = parseInt(action.payload[0]);
+      const difficulty = (action.payload[1]);
+      return { grid: hexArr(size), size: size, difficulty: difficulty};
+
     },
   },
 });

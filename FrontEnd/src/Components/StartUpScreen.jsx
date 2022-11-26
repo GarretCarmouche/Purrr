@@ -70,8 +70,7 @@ const StartUp = () => {
 
     dispatch(gamerun())
     console.log("This is the current state of the board at the start screen:",boardRun)
-    dispatch(initializeBoard(size));
-    dispatch(initializeDiff(difficulty));
+    dispatch(initializeBoard([size, difficulty]));
     navigate("/grid");
   };
 
