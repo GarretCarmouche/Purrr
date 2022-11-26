@@ -140,4 +140,9 @@ public class AIController {
     public void setBoardSize(@RequestParam int size) {
         catAi.setBoardSize(size);
     }
+
+    @GetMapping("/setdifficulty")
+    public void setDifficulty(@RequestParam String difficulty) {
+        catAi.setDifficulty(difficulty);
+    }
 }

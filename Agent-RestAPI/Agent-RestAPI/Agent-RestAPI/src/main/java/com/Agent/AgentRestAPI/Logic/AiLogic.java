@@ -23,6 +23,7 @@ public class AiLogic
     private List<Agent> wallList = new ArrayList<>();
     private int boardSize;
     private int depth = 7; // Default depth
+    private String difficulty;
     
 
 
@@ -38,6 +39,7 @@ public AiLogic()
 {  
     cat = new Agent();
     boardSize=0;
+    difficulty = "Easy";
 }
 
 //Temp function is in testing phase
@@ -46,6 +48,7 @@ public void restGameInstance()
     cat= new Agent();
     wallList =new ArrayList<>();
     boardSize=0;
+    difficulty = "Easy";
 }
 
 /*
@@ -75,6 +78,17 @@ public int getBoardSize()
     return boardSize;
 }
 
+public void setDifficulty(String dif)
+{
+    difficulty = dif;
+    System.out.println("Difficulty = " + getDifficulty());
+}
+
+
+public String getDifficulty()
+{
+    return difficulty;
+}
 
 /*
  * Name: sayHello
@@ -155,6 +169,11 @@ public boolean isCellBlocked(Agent location){
     }
     return false;
 }
+
+public Boolean isGameOver (Agent location){
+    return false;
+}
+
 
 
 /*
