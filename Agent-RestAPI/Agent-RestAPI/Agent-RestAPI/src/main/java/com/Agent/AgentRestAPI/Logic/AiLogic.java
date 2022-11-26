@@ -1,6 +1,6 @@
 package com.Agent.AgentRestAPI.Logic;
 /*
- * FileNaem: AiLogic.java
+ * FileName: AiLogic.java
  * Version: 1.0
  * Data: 10/08/2022
  * Purpose: Within this class we are able to set the game's enviorments and change the state of them.
@@ -22,9 +22,12 @@ public class AiLogic
     private Agent cat;
     private List<Agent> wallList = new ArrayList<>();
     private int boardSize;
-    private int depth = 6; // Default depth
-    
+    private int depth = 7; // Default depth
+    private String difficulty;
+    private Agent winCase = new Agent("Win",100,100,100);
+    private Agent lossCase = new Agent("Loss",200,200,200);
 
+    
 
 /*
  * Name: AiLogic
@@ -38,6 +41,7 @@ public AiLogic()
 {  
     cat = new Agent();
     boardSize=0;
+    difficulty = "Easy";
 }
 
 //Temp function is in testing phase
@@ -46,6 +50,7 @@ public void restGameInstance()
     cat= new Agent();
     wallList =new ArrayList<>();
     boardSize=0;
+    difficulty = "Easy";
 }
 
 /*
@@ -75,6 +80,23 @@ public int getBoardSize()
     return boardSize;
 }
 
+public void setDifficulty(String dif)
+{
+    difficulty = dif;
+    if(difficulty == "Easy")
+        depth = 5;
+    if(difficulty == "Medium")
+        depth = 7;
+    if(difficulty == "Hard")
+        depth = 9;
+    System.out.println("Difficulty = " + getDifficulty());
+}
+
+
+public String getDifficulty()
+{
+    return difficulty;
+}
 
 /*
  * Name: sayHello
@@ -156,6 +178,37 @@ public boolean isCellBlocked(Agent location){
     return false;
 }
 
+public boolean didPlayerWin (Agent location){
+    boolean win = false;
+    Agent[] moves = new Agent[6];
+    moves[0] = new Agent("1", location.getQ(), location.getR(), location.getS());
+    moves[1] = new Agent("2", location.getQ(), location.getR(), location.getS());
+    moves[2] = new Agent("3", location.getQ(), location.getR(), location.getS());
+    moves[3] = new Agent("4", location.getQ(), location.getR(), location.getS());
+    moves[4] = new Agent("5", location.getQ(), location.getR(), location.getS());
+    moves[5] = new Agent("6", location.getQ(), location.getR(), location.getS());
+
+    for(int i = 0; i < moves.length; i++){
+        if(isCellBlocked(moves[i]))
+            win = true;
+        else{
+            win = false;
+            break;
+        }
+    }
+
+    return win;
+}
+
+public boolean didPlayerLose(Agent cat){
+    int size = getBoardSize();
+    if(Math.abs(cat.getQ()) == size || Math.abs(cat.getR()) == size || Math.abs(cat.getS()) == size)
+        return true;
+    else
+        return false;
+}
+
+
 
 /*
  * Name: getNearestdistanceAxis
@@ -191,6 +244,11 @@ public Agent getNextLocation(){
     Agent nextLocation = (Agent) getNextLocation(depth, cat,0, null)[2];
     System.out.println("Step time: " + (System.currentTimeMillis() - startTime));
     moveCat(nextLocation);
+    if(didPlayerWin(nextLocation))
+        return winCase;
+    if(didPlayerLose(nextLocation))
+        return lossCase;
+
     return nextLocation;
 }
 
@@ -276,8 +334,6 @@ public int calcWeight(Agent location){
         return 1000;
     }
 
-    
-
     int weight = 0;
     
     int minDist = Math.min(location.getS(), location.getQ());
@@ -300,12 +356,5 @@ public int calcWeight(Agent location){
 
     return weight;
 }
-
-
-
-
-
-
-
 
 }
