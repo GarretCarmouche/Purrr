@@ -243,6 +243,7 @@ public Agent getNextLocation(){
     long startTime = System.currentTimeMillis();
     Agent nextLocation = (Agent) getNextLocation(depth, cat,0, null)[2];
     System.out.println("Step time: " + (System.currentTimeMillis() - startTime));
+    System.out.println(getDifficulty() + depth );
     moveCat(nextLocation);
     if(didPlayerWin(nextLocation))
         return winCase;
