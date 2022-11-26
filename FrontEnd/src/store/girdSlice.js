@@ -7,7 +7,7 @@ PURPOSE: This function generates an array of objects with q,r,s, and pattern val
 */
 const hexArr = (size) => {
   let hexCordsArr = [];
-
+  hexCordsArr.push({q:0,r:0,s:0,pattern:"cat"});
   for (let i = size * -1; i <= size; i++) {
     let x = i <= 0 ? size : -1 * size;
     let y = -1 * (x + i);
@@ -19,6 +19,8 @@ const hexArr = (size) => {
       hexCordsArr.push({ q: i, r: j, s: k, pattern: "yellow"});
     }
   }
+    //This is being tested to see if this position can be hard coded at generation
+   
   return hexCordsArr;
 };
 
@@ -87,7 +89,7 @@ export const getCatRequestOnly = createAsyncThunk("getCatRequestonly", async () 
 //The grid slice variable handles non-async actions the user dispatches
 export const gridSlice = createSlice({
   name: "gird",
-  initialState,
+  initialState:{diff:"Easy"},
   reducers: {
     /*
     NAME: changeBlack
@@ -128,21 +130,27 @@ export const gridSlice = createSlice({
       );
       return { grid: newGrid, size: grid.size, difficulty: grid.difficulty};
     },
+    //This is a test not complete
+    initializeDiff: (state, action) => {
+      state.difficulty=action.payload
+    },
 
     /*
     NAME: initializeBoard
     PARAMETERS: grid, action
     PURPOSE: This function initializes the redux store based on the size given.
     */
+    
     initializeBoard: (grid, action) => {
       const size = parseInt(action.payload[0]);
       const difficulty = (action.payload[1]);
       return { grid: hexArr(size), size: size, difficulty: difficulty};
+
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { changeBlack, changeCat, changeYello, initializeBoard } = gridSlice.actions;
+export const { changeBlack, changeCat, changeYello, initializeBoard, initializeDiff } = gridSlice.actions;
 
 export default gridSlice.reducer;
