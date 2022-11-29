@@ -71,7 +71,7 @@ const HexagonalGrid = () => {
   useEffect(() => {
     const initRequest = async () => {
       await dispatch(setSizeRequest(size)).unwrap();
-      await dispatch(setDifficultyRequest(difficulty)).unwrap();
+      await dispatch(setDifficultyRequest(diff)).unwrap();
     };
 
     initRequest();
