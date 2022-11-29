@@ -24,6 +24,7 @@ public class AiLogic
     private int boardSize;
     private int depth = 6; // Default depth
     private String difficulty;
+    private HashMap<Agent,Integer> visited = new HashMap<>();
     
 
 
@@ -149,6 +150,12 @@ public  void addWall(Agent wall)
  */
 public void moveCat(Agent newLocation)
 {   System.out.println("Cat New Location : "+newLocation.getQ()+" " + newLocation.getR()+" " + newLocation.getS());
+    if(visited.get(newLocation) == null){
+        visited.put(newLocation,1);
+    }else{
+        
+        visited.put(newLocation, visited.get(newLocation)+1);
+    }
     cat=newLocation;
 }
 
@@ -227,7 +234,7 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
         
         int minWeight = Integer.MAX_VALUE;
         Agent maxMove = moves[0];
-        for(int i = 0; i < moves.length-1; i++) {
+        for(int i = 0; i < moves.length; i++) {
             int weight = calcWeight(moves[i]);
             if(weight < minWeight){
                 minWeight = weight;
@@ -269,7 +276,7 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
 
         int minWeight = Integer.MAX_VALUE;
         Agent maxMove = (Agent) returns[0][0];
-        for(int i = 0; i < returns.length-1; i++) {
+        for(int i = 0; i < returns.length; i++) {
             int thisWeight = (int) returns[i][1] + calcWeight(currentLocation);
             if((int) thisWeight < minWeight){
                 minWeight = thisWeight;
@@ -278,9 +285,13 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
             }
         }
 
+        /*if(currentDepth == depth-1){
+            for(int i = 0; i < returns.length; i++){
+                int thisWeight = (int) returns[i][1] + calcWeight(currentLocation);
+                System.out.println("First step weight " + i + " " + thisWeight);
+            }
+        }*/
         currentWeight += minWeight;
-        
-        
         //System.out.println("Recursion - Current depth: " + ++currentDepth + " minWeight: " + minWeight + " maxMove: " + maxMove + " firststep: " + firstStep);
         
         newReturns[1] = minWeight;
@@ -304,13 +315,16 @@ public int calcWeight(Agent location){
         return 1000;
     }
 
-    
-
     int weight = 0;
-    
-    int minDist = Math.min(location.getS(), location.getQ());
-    minDist = Math.min(minDist,location.getR());
-    weight += minDist;
+
+    if(visited.get(location) != null){
+        weight += visited.get(location);
+    }
+
+
+    int maxDist = Math.max(Math.abs(location.getS()), Math.abs(location.getQ()));
+    maxDist = Math.max(maxDist,Math.abs(location.getR()));
+    weight -= maxDist;
 
     Agent[] sides = new Agent[6];
     sides[0] = new Agent("1", location.getQ(), location.getR() -1, location.getS() +1);
@@ -320,11 +334,14 @@ public int calcWeight(Agent location){
     sides[4] = new Agent("5", location.getQ() -1, location.getR() +1, location.getS());
     sides[5] = new Agent("6", location.getQ() -1, location.getR(), location.getS() +1);
 
+    int blockedCells = 0;
     for(int i = 0; i < sides.length; i++){
         if(isCellBlocked(sides[i])){
-            weight += 1;
+            blockedCells++;
         }
     }
+
+    weight += (Math.pow(2, blockedCells-1)) * 1.5;
 
     return weight;
 }
