@@ -22,7 +22,7 @@ public class AiLogic
     private Agent cat;
     private List<Agent> wallList = new ArrayList<>();
     private int boardSize;
-    private int depth = 7; // Default depth
+    private int depth = 6; // Default depth
     private String difficulty;
     
 
@@ -245,6 +245,15 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
         return returns;
 
      }else{
+        Object[] newReturns = new Object[3];
+
+        if(isCellBlocked(currentLocation)){
+            newReturns[1] = 1000;
+            newReturns[0] = currentLocation;
+            newReturns[2] = firstStep;
+            return newReturns;
+        }
+        
         Object[][] returns = new Object[6][];
         currentDepth--;
         returns[0] = getNextLocation(currentDepth,new Agent("1", currentLocation.getQ(), currentLocation.getR() -1, currentLocation.getS() +1),currentWeight, firstStep);
@@ -270,7 +279,7 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
         }
 
         currentWeight += minWeight;
-        Object[] newReturns = new Object[3];
+        
         
         //System.out.println("Recursion - Current depth: " + ++currentDepth + " minWeight: " + minWeight + " maxMove: " + maxMove + " firststep: " + firstStep);
         
