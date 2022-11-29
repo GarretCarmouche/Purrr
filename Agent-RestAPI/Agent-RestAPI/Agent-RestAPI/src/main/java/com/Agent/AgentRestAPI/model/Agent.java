@@ -1,4 +1,7 @@
 package com.Agent.AgentRestAPI.model;
+
+import ch.qos.logback.core.joran.conditional.ElseAction;
+
 /*
  * File Name: Agent.java
  * Version: 1.0
@@ -140,6 +143,45 @@ public class Agent
     public void setS(int s)
     {
         this.s=s;
+    }
+
+    /*
+     * Name: equals
+     * Purpose: To determine if two objects of Agent are equivilent
+     * Precondition: An agent instance must exist
+     * Postcondition: 
+     * Param: o : An object
+     * Return: boolean : If the two objects are equivilent
+     */
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Agent)){return false;}
+        Agent agent = (Agent) o;
+        return (agent.getQ() == this.getQ() && agent.getR() == this.getR() && agent.getS() == this.getS());
+    }
+
+    /*
+     * Name: hashCode
+     * Purpose: To provide a hash code for the Agent object
+     * Precondition: An agent instance must exist
+     * Postcondition: 
+     * Param:
+     * Return: int : A hash based on the q,r,s of the Agent
+     */
+    @Override
+    public int hashCode(){
+        String q,r,s;
+        if(this.getQ() < 0){
+            q = "9"+Math.abs(this.getQ());
+        }else{ q = "0"+this.getQ();}
+        if(this.getR() < 0){
+            r = "9"+Math.abs(this.getR());
+        }else{ r = "0"+this.getR();}
+        if(this.getS() < 0){
+            s = "9"+Math.abs(this.getS());
+        }else{ s = "0"+this.getS();}
+        String code = q+r+s;
+        return Integer.parseInt(code);
     }
 
 }
