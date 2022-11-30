@@ -41,6 +41,7 @@ public AiLogic()
     cat = new Agent();
     boardSize=0;
     difficulty = "Easy";
+    visited = new HashMap<>();
 }
 
 //Temp function is in testing phase
@@ -216,8 +217,25 @@ public Agent getNextLocation(){
     long startTime = System.currentTimeMillis();
     Agent nextLocation = (Agent) getNextLocation(depth, cat,0, null)[2];
     System.out.println("Step time: " + (System.currentTimeMillis() - startTime));
-    moveCat(nextLocation);
-    return nextLocation;
+
+    startTime = System.currentTimeMillis();
+    Agent[] moves = new Agent[6];
+    moves[0] = new Agent("1", cat.getQ(), cat.getR() -1, cat.getS() +1);
+    moves[1] = new Agent("2", cat.getQ() +1, cat.getR() -1, cat.getS());
+    moves[2] = new Agent("3", cat.getQ() +1, cat.getR(), cat.getS() -1);
+    moves[3] = new Agent("4", cat.getQ(), cat.getR() +1, cat.getS() -1);
+    moves[4] = new Agent("5", cat.getQ() -1, cat.getR() +1, cat.getS());
+    moves[5] = new Agent("6", cat.getQ() -1, cat.getR(), cat.getS() +1);
+
+    for(int i = 0; i < moves.length; i++){
+        if(!isCellBlocked(moves[i])){
+            System.out.println("Adjacent time: " + (System.currentTimeMillis() - startTime));
+            moveCat(nextLocation);
+            return nextLocation;
+        }
+    }
+
+    return null;
 }
 
 private Object[] getNextLocation(int currentDepth, Agent currentLocation, int currentWeight, Agent firstStep){
@@ -225,12 +243,12 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
 
     if(currentDepth == 0){
         Agent[] moves = new Agent[6];
-        moves[0] = new Agent("1", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
-        moves[1] = new Agent("2", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
-        moves[2] = new Agent("3", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
-        moves[3] = new Agent("4", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
-        moves[4] = new Agent("5", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
-        moves[5] = new Agent("6", currentLocation.getQ(), currentLocation.getR(), currentLocation.getS());
+        moves[0] = new Agent("1", cat.getQ(), cat.getR() -1, cat.getS() +1);
+        moves[1] = new Agent("2", cat.getQ() +1, cat.getR() -1, cat.getS());
+        moves[2] = new Agent("3", cat.getQ() +1, cat.getR(), cat.getS() -1);
+        moves[3] = new Agent("4", cat.getQ(), cat.getR() +1, cat.getS() -1);
+        moves[4] = new Agent("5", cat.getQ() -1, cat.getR() +1, cat.getS());
+        moves[5] = new Agent("6", cat.getQ() -1, cat.getR(), cat.getS() +1);
         
         int minWeight = Integer.MAX_VALUE;
         Agent maxMove = moves[0];
