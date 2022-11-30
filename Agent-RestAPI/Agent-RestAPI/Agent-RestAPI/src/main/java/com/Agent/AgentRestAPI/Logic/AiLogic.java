@@ -82,7 +82,13 @@ public int getBoardSize()
 public void setDifficulty(String dif)
 {
     difficulty = dif;
-    System.out.println("Difficulty = " + getDifficulty());
+    if(difficulty.equals("Easy"))
+        depth = 4;
+    if(difficulty.equals("Medium"))
+        depth = 5;
+    if(difficulty.equals("Hard"))
+        depth = 6;
+    System.out.println("Difficulty = " + getDifficulty() + " And Depth is : " +depth );
 }
 
 
