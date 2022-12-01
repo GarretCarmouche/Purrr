@@ -73,12 +73,26 @@ public class AIController {
     @GetMapping("/getagentlocation")
     public Map<String, String> getCatLocation() {
         //return catAi.getCatLocation();
-        Agent newLocation = catAi.getNextLocation();
+
+        try
+
+        {
+            Agent newLocation = catAi.getNextLocation();
         HashMap<String, String> returnMap = new HashMap<>();
         returnMap.put("q", ""+newLocation.getQ());
         returnMap.put("r", ""+newLocation.getR());
         returnMap.put("s", ""+newLocation.getS());
         return returnMap;
+        }catch(Exception e)
+        {
+            HashMap<String, String> returnMap = new HashMap<>();
+        returnMap.put("q", ""+1000);
+        returnMap.put("r", ""+1000);
+        returnMap.put("s", ""+1000);
+        System.out.println("Erro getNexLocation() null pointer setting q,r,s to 1000");
+        return returnMap;
+        }
+        
     }
 
 
