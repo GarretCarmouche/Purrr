@@ -148,6 +148,11 @@ public class Agent
         this.s=s;
     }
 
+    public void setPath(boolean path)
+    {
+        this.path =true;
+    }
+
     /*
      * Name: equals
      * Purpose: To determine if two objects of Agent are equivilent
