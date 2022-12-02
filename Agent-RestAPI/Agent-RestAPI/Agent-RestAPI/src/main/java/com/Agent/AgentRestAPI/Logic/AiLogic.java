@@ -12,8 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
+
 import org.springframework.stereotype.Component;
 import com.Agent.AgentRestAPI.model.Agent;
+
+import ch.qos.logback.core.joran.conditional.ElseAction;
 
 //This class annotation allows spring to manage the components being called in the controller class
 @Component
@@ -370,6 +374,94 @@ public int calcWeight(Agent location){
     return weight;
 }
 
+
+public boolean checkGame()
+{   boolean status =checkUpper(cat).path;
+    System.out.println("Path still avilable" + status);
+    return status;
+}
+
+
+
+public Agent checkUpper(Agent currentlocation)
+{   HashMap<String,Boolean> visted =new HashMap<>();
+    String currentkey =""+currentlocation.getQ()+currentlocation.getS()+currentlocation.getR();
+    visted.put(currentkey,true);
+
+    if (currentlocation.getQ() >= boardSize || currentlocation.getR() >= boardSize || currentlocation.getS() >= boardSize )
+    {   
+        currentlocation.path = true;
+        return currentlocation;
+    }
+    
+    Agent westNode = new Agent("1",currentlocation.getQ()-1,currentlocation.getS()+1,currentlocation.getR());
+    Agent northNode = new Agent("2",currentlocation.getQ(),currentlocation.getS()+1,currentlocation.getR()-1);
+    Agent eastNode = new Agent("3",currentlocation.getQ()+1,currentlocation.getS(),currentlocation.getR()-1);
+
+
+
+    Agent path =null;
+
+    if(!isCellBlocked(westNode))
+    {   String key =""+westNode.getQ()+westNode.getS()+westNode.getR();
+        if(visted.containsKey(key))
+        {
+            return path;
+        }
+        else
+        {
+            path =checkUpper(westNode);
+            if(path.path == true || path ==null)
+            {
+                return path;
+            }
+        }
+    }
+    
+
+    if(!isCellBlocked(northNode))
+    {
+        String key =""+northNode.getQ()+northNode.getS()+northNode.getR();
+        if(visted.containsKey(key))
+        {
+            return path;
+        }
+        else
+        {
+            path =checkUpper(northNode);
+            if(path.path == true|| path ==null)
+            {
+                return path;
+            }
+            
+        }
+        
+    }
+    
+      if(!isCellBlocked(eastNode))
+        {   String key =""+eastNode.getQ()+eastNode.getR()+eastNode.getR();
+            if(visted.containsKey(key))
+            {
+                return path;
+            }
+            else
+            {
+                path =checkUpper(eastNode);
+                if(path.path == true|| path ==null)
+                {
+                    return path;
+                }
+                
+            }
+        }
+
+    return path;
+
+
+
+
+
+}
 
 
 

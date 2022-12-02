@@ -15,6 +15,7 @@ public class Agent
     int q;
     int r;
     int s;
+    public boolean path =false;
 
     /*
      * Name: Agent
@@ -30,6 +31,8 @@ public class Agent
         r=0;
         s=0;
     }
+
+    
 
     public String toString(){
         return ("" + this.getQ() + "," + this.getR() + "," + this.getS());

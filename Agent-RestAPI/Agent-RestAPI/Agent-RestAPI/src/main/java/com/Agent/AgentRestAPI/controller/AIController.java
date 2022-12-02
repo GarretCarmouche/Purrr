@@ -46,6 +46,13 @@ public class AIController {
         catAi.restGameInstance();
     }
 
+    //Endpoint is being tested 
+    @GetMapping("/checkGameStatus")
+    public void checkGame()
+    {
+        catAi.checkGame();
+    }
+
 
 
     /*

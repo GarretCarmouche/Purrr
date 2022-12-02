@@ -10,6 +10,15 @@ export const resetGame = createAsyncThunk(
     }
   );
 
+
+  export const pathAvailable = createAsyncThunk(
+    "pathAvailable",
+    async () => {
+      const getReq = `http://localhost:8080/aicontroller/checkGameStatus`;
+      const response = await fetch(getReq);
+    }
+  );
+
 export const boardStateSlice = createSlice({ 
     name:"boardState", 
     initialState:{boardRun:2},
