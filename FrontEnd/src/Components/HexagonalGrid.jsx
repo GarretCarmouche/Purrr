@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setSizeRequest, getCatRequest, changeCat, changeYello, setDifficultyRequest } from "../store/girdSlice";
 import { useNavigate } from "react-router-dom";
-import { reset,gamerun } from "../store/GameState";
+import { reset,gamerun, pathAvailable } from "../store/GameState";
 
 /*
 This variable is an object that has a key used by the board state
@@ -86,6 +86,7 @@ const HexagonalGrid = () => {
   const handleCatMove = async () => {
     let val = await dispatch(getCatRequest()).unwrap();
     dispatch(changeCat(val));
+    dispatch(pathAvailable());
    
   };
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ const HexagonalGrid = () => {
   const handleCatLastMove = async () => {
     let val = await dispatch(getCatRequest()).unwrap();
     dispatch(changeYello(val));
+    
   };
 
 
