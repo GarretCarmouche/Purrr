@@ -390,15 +390,26 @@ public int calcWeight(Agent location){
 
 public boolean checkGame()
     
-{   boolean status =checkUpper(cat).path;
-    System.out.println("Path still avilable north: " + status);
+{   
+    boolean status = true;
+
+    boolean northStatus =checkUpper(cat).path;
+    System.out.println("Path still avilable north: " + northStatus);
 
     boolean southStatus =checkLower(cat).path;
     System.out.println("Path still avilable south: " + southStatus);
 
-    if(status == false && southStatus == false)
+    boolean westStatus =checkLower(cat).path;
+    System.out.println("Path still avilable west: " + westStatus);
+
+    boolean eastStatus =checkLower(cat).path;
+    System.out.println("Path still avilable east: " + eastStatus);
+
+
+    if(northStatus == false && southStatus == false && westStatus == false && eastStatus == false)
     {
         System.out.println("Game Lost");
+        status =false;
     }
     return status;
 }
@@ -550,7 +561,125 @@ public Agent checkLower(Agent currentlocation)
 
 }
 
+public Agent checkLeft(Agent currentlocation)
+{
+    String currentkey = ""+currentlocation.getQ()+currentlocation.getR()+currentlocation.getS();
+    Agent path =new Agent("1000",1000,1000,100);
+    if(currentlocation.getQ() >= boardSize || currentlocation.getR() >= boardSize || currentlocation.getS() >= boardSize || currentlocation.getQ() <= -boardSize || currentlocation.getR() <= -boardSize || currentlocation.getS() <= -boardSize)
+    {   
+        currentlocation.setPath(true);
+        return currentlocation;
+        
+    }
+    if(NodeOnMapvisted.containsKey(currentkey))
+    {   path.setPath(false);
+        return path;
+    }
+    
 
+    
+    Agent upperNode = new Agent("1",currentlocation.getQ()-1,currentlocation.getR(),currentlocation.getS()+1);
+    Agent lowerNode = new Agent("2",currentlocation.getQ()-1,currentlocation.getR()+1,currentlocation.getS());
+   
+
+    if(!isCellBlocked(upperNode))
+    {
+        String key =""+upperNode.getQ()+upperNode.getR()+upperNode.getS();
+        if(NodeOnMapvisted.containsKey(key))
+        {   return path;
+        }
+        else
+        {
+            path =checkUpper(upperNode);
+            return path;
+            
+        }
+        
+    }
+    
+      if(!isCellBlocked(lowerNode))
+        {   String key =""+lowerNode.getQ()+lowerNode.getR()+lowerNode.getS();
+            if(NodeOnMapvisted.containsKey(key))
+            {   return path;
+            }
+            else
+            {
+                path =checkUpper(lowerNode);
+                return path;
+                
+            }
+        }
+
+
+        NodeOnMapvisted.put(currentkey,true);
+
+    return path;
+
+
+
+
+
+}
+
+public Agent checkRigth(Agent currentlocation)
+{
+    String currentkey = ""+currentlocation.getQ()+currentlocation.getR()+currentlocation.getS();
+    Agent path =new Agent("1000",1000,1000,100);
+    if(currentlocation.getQ() >= boardSize || currentlocation.getR() >= boardSize || currentlocation.getS() >= boardSize || currentlocation.getQ() <= -boardSize || currentlocation.getR() <= -boardSize || currentlocation.getS() <= -boardSize)
+    {   
+        currentlocation.setPath(true);
+        return currentlocation;
+        
+    }
+    if(NodeOnMapvisted.containsKey(currentkey))
+    {   path.setPath(false);
+        return path;
+    }
+    
+
+    
+    Agent upperNode = new Agent("1",currentlocation.getQ()+1,currentlocation.getR()-1,currentlocation.getS());
+    Agent lowerNode = new Agent("2",currentlocation.getQ()+1,currentlocation.getR(),currentlocation.getS()-1);
+   
+
+    if(!isCellBlocked(upperNode))
+    {
+        String key =""+upperNode.getQ()+upperNode.getR()+upperNode.getS();
+        if(NodeOnMapvisted.containsKey(key))
+        {   return path;
+        }
+        else
+        {
+            path =checkUpper(upperNode);
+            return path;
+            
+        }
+        
+    }
+    
+      if(!isCellBlocked(lowerNode))
+        {   String key =""+lowerNode.getQ()+lowerNode.getR()+lowerNode.getS();
+            if(NodeOnMapvisted.containsKey(key))
+            {   return path;
+            }
+            else
+            {
+                path =checkUpper(lowerNode);
+                return path;
+                
+            }
+        }
+
+
+        NodeOnMapvisted.put(currentkey,true);
+
+    return path;
+
+
+
+
+
+}
 
 
 
