@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 NAME: hexArr
 PARAMATERS: size
 PURPOSE: This function generates an array of objects with q,r,s, and pattern values
+RETURN: hexCordsArr
 */
 const hexArr = (size) => {
   let hexCordsArr = [];
@@ -31,6 +32,7 @@ const initialState = { grid: hexArr(3), size: 3, difficulty: "Easy" };
 NAME: setSizeRequest
 PARAMATERS: size
 PURPOSE: This function calls our backend api and tells them the size of the board
+RETURN: None
 */
 export const setSizeRequest = createAsyncThunk(
   "setSizeRequest",
@@ -44,6 +46,7 @@ export const setSizeRequest = createAsyncThunk(
 NAME: setDifficultyRequest
 PARAMATERS: difficulty
 PURPOSE: This function calls our backend api and tells them the game difficulty
+RETURN: None
 */
 export const setDifficultyRequest = createAsyncThunk(
   "setDifficultyRequest",
@@ -58,6 +61,7 @@ NAME: addWallRequest
 PARAMATERS: wallCords
 PURPOSE: This function calls our backend api and tells them where the user is placing a wall
 PRECONDITION: The user has selected a wall
+RETURN: None
 */
 export const addWallRequest = createAsyncThunk(
   "addWallRequest",
@@ -69,7 +73,9 @@ export const addWallRequest = createAsyncThunk(
 
 /*
 NAME: getCatRequest
+PARAMATERS: None
 PURPOSE: This function calls our backend api and asks for the cats location
+RETURN: A JSON object containing the q,r,s of the cat agent
 */
 export const getCatRequest = createAsyncThunk("getCatRequest", async () => {
   const getReq = "http://localhost:8080/aicontroller/getagentlocation";
@@ -77,6 +83,11 @@ export const getCatRequest = createAsyncThunk("getCatRequest", async () => {
   return response.json();
 });
 
+/*
+NAME: getCatRequestOnly
+PURPOSE: This function calls our backend api and asks for the cats without moving the cat, this fuction is used for mapping purposes 
+RETURN: A JSON object containing the q,r,s of the cat agent
+*/
 export const getCatRequestOnly = createAsyncThunk("getCatRequestonly", async () => {
   const getReq = "http://localhost:8080/aicontroller/getagentlocationonly";
   const response = await fetch(getReq);
@@ -95,6 +106,7 @@ export const gridSlice = createSlice({
     NAME: changeBlack
     PARAMETERS: grid, action
     PURPOSE: This function changes an individual tile in the redux store to black.
+    RETURN: New gride with black slices at the correct coordinates
     */
     changeBlack: (grid, action) => {
       const { q, r, s } = { ...action.payload };
@@ -110,6 +122,7 @@ export const gridSlice = createSlice({
     NAME: changeCat
     PARAMETERS: grid, action
     PURPOSE: This function changes an individual tile in the redux store to the cat image.
+    RETURN: New gride with a cat slice at the correct coordinates
     */
     changeCat: (grid, action) => {
       const { q, r, s } = { ...action.payload };
@@ -120,7 +133,12 @@ export const gridSlice = createSlice({
       );
       return { grid: newGrid, size: grid.size, difficulty: grid.difficulty};
     },
-    //This is where we would change a grid slice back to yello
+    /*
+    NAME: changeYello
+    PARAMETERS: grid, action
+    PURPOSE: To change a gride slice to the color yello
+    RETURN: New gride with Yellow slices at the correct coordinates
+    */
     changeYello: (grid, action) => {
       const { q, r, s } = { ...action.payload };
       const newGrid = grid.grid.map((gridEl) =>
@@ -130,7 +148,12 @@ export const gridSlice = createSlice({
       );
       return { grid: newGrid, size: grid.size, difficulty: grid.difficulty};
     },
-    //This is a test not complete
+    /*
+    NAME: initializeDiff
+    PARAMETERS: state, action
+    PURPOSE: To save the difficulty level the user inputs
+    RETURN: None
+    */
     initializeDiff: (state, action) => {
       state.difficulty=action.payload
     },
@@ -139,6 +162,7 @@ export const gridSlice = createSlice({
     NAME: initializeBoard
     PARAMETERS: grid, action
     PURPOSE: This function initializes the redux store based on the size given.
+    RETURN: New gride of a size input
     */
     
     initializeBoard: (grid, action) => {

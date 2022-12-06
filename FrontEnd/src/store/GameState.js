@@ -1,7 +1,12 @@
 import { createSlice,createAsyncThunk, CreateSliceOptions } from "@reduxjs/toolkit";
 
 
-
+/*
+NAME: resetGame
+PARAMATERS: None
+PURPOSE: To fetch the command reset from the AIController
+RETURN: None
+*/
 export const resetGame = createAsyncThunk(
     "resetGame",
     async () => {
@@ -10,7 +15,12 @@ export const resetGame = createAsyncThunk(
     }
   );
 
-
+  /*
+NAME: pathAvailable
+PARAMATERS: None
+PURPOSE: To fetch the command checkGameStatus, which see if cat AI has a path to win
+RETURN: boolean, status of game
+*/
   export const pathAvailable = createAsyncThunk(
     "pathAvailable",
     async () => {
@@ -18,7 +28,12 @@ export const resetGame = createAsyncThunk(
       const response = await fetch(getReq);
     }
   );
-
+/*
+NAME: boardStateSlice
+PARAMATERS: None
+PURPOSE: Allows us to keep track to the game state, whether our game is running or not
+RETURN: None
+*/
 export const boardStateSlice = createSlice({ 
     name:"boardState", 
     initialState:{boardRun:2},
