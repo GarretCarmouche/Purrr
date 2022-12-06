@@ -68,6 +68,7 @@ public class AIController {
     public Map<String, String> sayHello() {
         return catAi.sayHello();
     }
+
     /*
      * Name: getCatLocation
      * Purpose: To get the location of the cat agent
@@ -77,6 +78,7 @@ public class AIController {
      * Return: returnMap : A Map object that will be configured to JSON for the client
      * Get http://localhost:8080/aicontroller/getagentlocation
      */
+
     @GetMapping("/getagentlocation")
     public Map<String, String> getCatLocation() {
         //return catAi.getCatLocation();
@@ -102,14 +104,20 @@ public class AIController {
         
     }
 
+     /*
+     * Name: getAgentLocationOnly
+     * Purpose: The same as the above function, except when the frontend calls it the cat agent is unaffected
+     * Precondition: An instance of the cat agent must exist
+     * Postcondition: The user will recive configured JSON data of the cat agents current location
+     * Param: none
+     * Return: returnMap : A Map object that will be configured to JSON for the client
+     * Get http://localhost:8080/aicontroller/getagentlocationonly
+     */
 
     @GetMapping("/getagentlocationonly")
     public Map<String, Object> getCatLocationOnly() {
         return catAi.getCatLocation();
     }
-
-
-
 
 
     /*
@@ -130,6 +138,7 @@ public class AIController {
         newCatLocation.setS(s);
         catAi.moveCat(newCatLocation);
     }
+
     /*
      * Name: addWall
      * Purpose: To add a wall agent to our list of walls from the client
@@ -148,6 +157,7 @@ public class AIController {
         newAg.setS(s);
         catAi.addWall(newAg);
     }
+    
     /*
      * Name: setBoardSize
      * Purpose: To set the board size so our backend can calculate final positions and states
@@ -155,12 +165,22 @@ public class AIController {
      * Postcondition: The board member will have a new integer value of size more than 0
      * Param: size : An integer value for the board member
      * Return: void : none
+     *GET http://localhost:8080/aicontroller/setboardsize
      */
-    // GET http://localhost:8080/aicontroller/setboardsize
     @GetMapping("/setboardsize")
     public void setBoardSize(@RequestParam int size) {
         catAi.setBoardSize(size);
     }
+
+    /*
+     * Name: setDifficulty
+     * Purpose: To set the difficulty in the backend
+     * Precondition: The difficulty is selected
+     * Postcondition: The backend has received the difficulty
+     * Param: difficulty : The difficulty the user selected in the frontend
+     * Return: void : none
+     *GET http://localhost:8080/aicontroller/setdifficulty
+     */
 
     @GetMapping("/setdifficulty")
     public void setDifficulty(@RequestParam String difficulty) {

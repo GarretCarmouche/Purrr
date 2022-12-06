@@ -1,6 +1,8 @@
 package com.Agent.AgentRestAPI.Logic;
 import com.Agent.AgentRestAPI.model.Agent;
 
+
+//A class for desting AiLogic Instances without the frontend server
 public class Test extends AiLogic{
 
     public static void main(String[] args){

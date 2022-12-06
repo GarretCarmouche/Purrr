@@ -89,6 +89,14 @@ public int getBoardSize()
     return boardSize;
 }
 
+/*
+ * Name: setDifficulty
+ * Purpose: Sets the difficulty in the backend after the frontend calls it
+ * Precondition: Instance of class must be created
+ * Postcondition: The difficulty and the lookahead depth is set
+ * Param: Frontend's difficulty
+ * Return: none
+ */
 public void setDifficulty(String dif)
 {
     difficulty = dif;
@@ -101,7 +109,14 @@ public void setDifficulty(String dif)
     System.out.println("Difficulty = " + getDifficulty() + " And Depth is : " +depth );
 }
 
-
+/*
+ * Name: getDifficulty
+ * Purpose: return the backend difficulty
+ * Precondition: difficulty is set
+ * Postcondition: none
+ * Param: none
+ * Return: difficulty, a string that is Easy, Medium, or Hard
+ */
 public String getDifficulty()
 {
     return difficulty;
@@ -195,11 +210,6 @@ public boolean isCellBlocked(Agent location){
     return false;
 }
 
-public Boolean isGameOver (Agent location){
-    return false;
-}
-
-
 
 /*
  * Name: getNearestdistanceAxis
@@ -228,8 +238,6 @@ public char getNearestDistanceAxis(Agent currentLocation){
  * Return: maxMove : A new agent with the calculated max weight
  */
 
-
- 
 public Agent getNextLocation(){
     long startTime = System.currentTimeMillis();
     Agent nextLocation = (Agent) getNextLocation(depth, cat,0, null)[2];
@@ -388,6 +396,14 @@ public int calcWeight(Agent location){
     return weight;
 }
 
+/*
+ * Name: isCellSurrounded
+ * Purpose: Check to see if the cat is surrounded by walls
+ * Precondition: A cat instance exists
+ * Postcondition: The agent is unaffected
+ * Param: location : The cat agent withs its own corrdinates q,r,s
+ * Return: A boolean that is true if the cat is surrounded by walls or false otherwise
+ */
 
 public boolean isCellSurrounded(Agent location)
 {
@@ -426,11 +442,6 @@ public boolean checkGame()
     System.out.println("Check game"+status);
     return status;
 }
-
-
-
-
-
 
 
 }

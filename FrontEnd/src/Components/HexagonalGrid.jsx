@@ -60,7 +60,7 @@ const HexagonalGrid = () => {
   //The hexArray variable grabs the current board from our redux store
   const hexArray = useSelector((state) => state.grid).grid;
 
-  //The size variable grabs the board size from our redux store
+  //The size and difficulty variables are grabbed from our redux store
   const size = useSelector((state) => state.grid).size;
   const diff = useSelector((state) => state.grid).difficulty;
 
@@ -80,7 +80,7 @@ const HexagonalGrid = () => {
   /*
   NAME: handleCatMove
   PARAMATERS: none
-  PURPOSE: This function dispatches an action to our redux store that requests the cats location
+  PURPOSE: This function dispatches an action to our redux store that requests the cats location while checking the game state
   PRECONDITION: The user has blocked a tile
   */
   const handleCatMove = async () => {
@@ -120,9 +120,6 @@ const HexagonalGrid = () => {
     dispatch(changeYello(val));
     
   };
-
-
-
 
 
   //This return statement is what is actually rendered by this component
