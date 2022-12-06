@@ -168,6 +168,8 @@ public void moveCat(Agent newLocation)
         
         visited.put(newLocation, visited.get(newLocation)+1);
     }
+
+    
     cat=newLocation;
 }
 
