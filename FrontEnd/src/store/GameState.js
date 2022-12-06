@@ -16,6 +16,7 @@ export const resetGame = createAsyncThunk(
     async () => {
       const getReq = `http://localhost:8080/aicontroller/checkGameStatus`;
       const response = await fetch(getReq);
+      return response.json();
     }
   );
 
