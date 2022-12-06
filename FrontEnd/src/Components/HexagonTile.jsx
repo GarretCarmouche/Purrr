@@ -35,7 +35,7 @@ const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
   //console.log(firstRun);
   //console.log("Difficulty:" + difficulty);
   //The tile variable selects the tile corresponding to our q,r,s coordinates from our redux store
-  if(firstRun){
+  if(firstRun && q != 0 && r != 0 && s != 0){
     if(difficulty === "Easy"){
       setBlack = Math.random() > .85;
       if(setBlack){
