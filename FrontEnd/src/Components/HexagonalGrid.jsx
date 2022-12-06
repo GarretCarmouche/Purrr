@@ -96,12 +96,7 @@ const HexagonalGrid = () => {
       navigate("/PlayerLost")
     }
     dispatch(changeCat(val));
-<<<<<<< HEAD
      
-=======
-    let x =dispatch(pathAvailable());
-   console.log(x);
->>>>>>> main
   };
   const navigate = useNavigate();
    const handleSubmitClick = () => {
