@@ -86,8 +86,8 @@ const HexagonalGrid = () => {
   const handleCatMove = async () => {
     let val = await dispatch(getCatRequest()).unwrap();
     dispatch(changeCat(val));
-    dispatch(pathAvailable());
-   
+    let x =dispatch(pathAvailable());
+   console.log(x);
   };
   const navigate = useNavigate();
    const handleSubmitClick = () => {
