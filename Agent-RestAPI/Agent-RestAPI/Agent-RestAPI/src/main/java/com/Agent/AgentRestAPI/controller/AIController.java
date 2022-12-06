@@ -48,9 +48,9 @@ public class AIController {
 
     //Endpoint is being tested 
     @GetMapping("/checkGameStatus")
-    public void checkGame()
+    public boolean checkGame()
     {
-        catAi.checkGame();
+        return catAi.checkGame();
     }
 
 
@@ -85,19 +85,19 @@ public class AIController {
 
         {
             Agent newLocation = catAi.getNextLocation();
-        HashMap<String, String> returnMap = new HashMap<>();
-        returnMap.put("q", ""+newLocation.getQ());
-        returnMap.put("r", ""+newLocation.getR());
-        returnMap.put("s", ""+newLocation.getS());
-        return returnMap;
+            HashMap<String, String> returnMap = new HashMap<>();
+            returnMap.put("q", ""+newLocation.getQ());
+            returnMap.put("r", ""+newLocation.getR());
+            returnMap.put("s", ""+newLocation.getS());
+            return returnMap;
         }catch(Exception e)
         {
+            Map<String, Object> map = catAi.getCatLocation();
             HashMap<String, String> returnMap = new HashMap<>();
-        returnMap.put("q", ""+1000);
-        returnMap.put("r", ""+1000);
-        returnMap.put("s", ""+1000);
-        System.out.println("Erro getNexLocation() null pointer setting q,r,s to 1000");
-        return returnMap;
+            returnMap.put("q", ""+map.get("q"));
+            returnMap.put("r", ""+map.get("r"));
+            returnMap.put("s", ""+map.get("s"));
+            return returnMap;
         }
         
     }
@@ -166,4 +166,5 @@ public class AIController {
     public void setDifficulty(@RequestParam String difficulty) {
         catAi.setDifficulty(difficulty);
     }
+    
 }

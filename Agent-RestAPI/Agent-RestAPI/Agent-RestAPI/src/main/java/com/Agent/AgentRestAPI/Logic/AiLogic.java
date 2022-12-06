@@ -31,6 +31,8 @@ public class AiLogic
     private HashMap<Agent,Integer> visited = new HashMap<>();
     HashMap<String,Boolean> NodeOnMapvisted =new HashMap<>();
     
+    public Agent Victory = new Agent("Loss", 100,100,100);
+
 
 
 /*
@@ -56,6 +58,8 @@ public void restGameInstance()
     wallList =new ArrayList<>();
     boardSize=0;
     difficulty = "Easy";
+    visited = new HashMap<>();
+    NodeOnMapvisted = new HashMap<>();
 }
 
 /*
@@ -247,6 +251,13 @@ public Agent getNextLocation(){
     }
 
     return null;
+    /*if(nextLocation.equals(null)){
+        System.out.println("Null Return, victory!");
+        return(Victory);
+    }
+
+    moveCat(nextLocation);
+    return nextLocation;*/
 }
 
 private Object[] getNextLocation(int currentDepth, Agent currentLocation, int currentWeight, Agent firstStep){
@@ -341,7 +352,7 @@ private Object[] getNextLocation(int currentDepth, Agent currentLocation, int cu
  */
 public int calcWeight(Agent location){
     if(isCellBlocked(location)){
-        return 1000;
+        return 10000;
     }
 
     int weight = 0;
@@ -376,310 +387,45 @@ public int calcWeight(Agent location){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-public boolean checkGame()
+public boolean isCellSurrounded(Agent location)
+{
+    Agent[] sides = new Agent[6];
+    sides[0] = new Agent("1", location.getQ(), location.getR() -1, location.getS() +1);
+    sides[1] = new Agent("2", location.getQ() +1, location.getR() -1, location.getS());
+    sides[2] = new Agent("3", location.getQ() +1, location.getR(), location.getS() -1);
+    sides[3] = new Agent("4", location.getQ(), location.getR() +1, location.getS() -1);
+    sides[4] = new Agent("5", location.getQ() -1, location.getR() +1, location.getS());
+    sides[5] = new Agent("6", location.getQ() -1, location.getR(), location.getS() +1);
     
+    for(int i = 0; i < sides.length; i++)
+    {
+        if(!(isCellBlocked(sides[i])))
+        {
+            System.out.println("Opening available"+i);
+            return false;
+        }
+    }
+
+    return true;
+
+}
+
+
+//returns true if the agent can move, false if the player won
+
+public boolean checkGame()   
 {   
     boolean status = true;
 
-    boolean northStatus =checkUpper(cat).path;
-    System.out.println("Path still avilable north: " + northStatus);
+    
+    if(isCellSurrounded(cat))
+        status = false;
 
-    boolean southStatus =checkLower(cat).path;
-    System.out.println("Path still avilable south: " + southStatus);
-
-    boolean westStatus =checkLower(cat).path;
-    System.out.println("Path still avilable west: " + westStatus);
-
-    boolean eastStatus =checkLower(cat).path;
-    System.out.println("Path still avilable east: " + eastStatus);
-
-
-    if(northStatus == false && southStatus == false && westStatus == false && eastStatus == false)
-    {
-        System.out.println("Game Lost");
-        status =false;
-    }
+    System.out.println("Check game"+status);
     return status;
 }
 
 
-
-public Agent checkUpper(Agent currentlocation)
-{
-    String currentkey = ""+currentlocation.getQ()+currentlocation.getR()+currentlocation.getS();
-    Agent path =new Agent("1000",1000,1000,100);
-    if(currentlocation.getQ() >= boardSize || currentlocation.getR() >= boardSize || currentlocation.getS() >= boardSize || currentlocation.getQ() <= -boardSize || currentlocation.getR() <= -boardSize || currentlocation.getS() <= -boardSize)
-    {   
-        currentlocation.setPath(true);
-        return currentlocation;
-        
-    }
-    if(NodeOnMapvisted.containsKey(currentkey))
-    {   path.setPath(false);
-        return path;
-    }
-    
-
-    
-    Agent westNode = new Agent("1",currentlocation.getQ()-1,currentlocation.getR(),currentlocation.getS()+1);
-    Agent northNode = new Agent("2",currentlocation.getQ(),currentlocation.getR()-1,currentlocation.getS()+1);
-    Agent eastNode = new Agent("3",currentlocation.getQ()+1,currentlocation.getR()-1,currentlocation.getS());
-   if(!isCellBlocked(westNode))
-    {   String key =""+westNode.getQ()+westNode.getR()+westNode.getS();
-        if(NodeOnMapvisted.containsKey(key))
-        {   return path;
-        }
-        else
-        {
-            path =checkUpper(westNode);
-             return path;
-        }
-    }
-    
-
-    if(!isCellBlocked(northNode))
-    {
-        String key =""+northNode.getQ()+northNode.getR()+northNode.getS();
-         if(NodeOnMapvisted.containsKey(key))
-        {   return path;
-        }
-        else
-        {
-            path =checkUpper(northNode);
-             return path;
-            
-        }
-        
-    }
-    
-      if(!isCellBlocked(eastNode))
-        {   String key =""+eastNode.getQ()+eastNode.getR()+eastNode.getS();
-            if(NodeOnMapvisted.containsKey(key))
-            {   return path;
-            }
-            else
-            {
-                path =checkUpper(eastNode);
-                return path;
-                
-            }
-        }
-        System.out.println("current key: "+currentkey);
-        NodeOnMapvisted.put(currentkey,true);
-
-    return path;
-
-
-
-
-
-}
-public Agent checkLower(Agent currentlocation)
-{
-    String currentkey = ""+currentlocation.getQ()+currentlocation.getR()+currentlocation.getS();
-    Agent path =new Agent("1000",1000,1000,100);
-    if(currentlocation.getQ() >= boardSize || currentlocation.getR() >= boardSize || currentlocation.getS() >= boardSize || currentlocation.getQ() <= -boardSize || currentlocation.getR() <= -boardSize || currentlocation.getS() <= -boardSize)
-    {   
-        currentlocation.setPath(true);
-        return currentlocation;
-        
-    }
-    if(NodeOnMapvisted.containsKey(currentkey))
-    {   path.setPath(false);
-        return path;
-    }
-    
-
-    
-    Agent westNode = new Agent("1",currentlocation.getQ()-1,currentlocation.getR()+1,currentlocation.getS());
-    Agent southNode = new Agent("2",currentlocation.getQ(),currentlocation.getR()+1,currentlocation.getS()-1);
-    Agent eastNode = new Agent("3",currentlocation.getQ()+1,currentlocation.getR(),currentlocation.getS()-1);
-
-   
-
-    if(!isCellBlocked(westNode))
-    {   String key =""+westNode.getQ()+westNode.getR()+westNode.getS();
-        if(NodeOnMapvisted.containsKey(key))
-        {   return path;
-        }
-        else
-        {
-            path =checkUpper(westNode);
-            return path;
-        }
-    }
-    
-
-    if(!isCellBlocked(southNode))
-    {
-        String key =""+southNode.getQ()+southNode.getR()+southNode.getS();
-        if(NodeOnMapvisted.containsKey(key))
-        {   return path;
-        }
-        else
-        {
-            path =checkUpper(southNode);
-            return path;
-            
-        }
-        
-    }
-    
-      if(!isCellBlocked(eastNode))
-        {   String key =""+eastNode.getQ()+eastNode.getR()+eastNode.getS();
-            if(NodeOnMapvisted.containsKey(key))
-            {   return path;
-            }
-            else
-            {
-                path =checkUpper(eastNode);
-                return path;
-                
-            }
-        }
-
-
-        NodeOnMapvisted.put(currentkey,true);
-
-    return path;
-
-
-
-
-
-}
-
-public Agent checkLeft(Agent currentlocation)
-{
-    String currentkey = ""+currentlocation.getQ()+currentlocation.getR()+currentlocation.getS();
-    Agent path =new Agent("1000",1000,1000,100);
-    if(currentlocation.getQ() >= boardSize || currentlocation.getR() >= boardSize || currentlocation.getS() >= boardSize || currentlocation.getQ() <= -boardSize || currentlocation.getR() <= -boardSize || currentlocation.getS() <= -boardSize)
-    {   
-        currentlocation.setPath(true);
-        return currentlocation;
-        
-    }
-    if(NodeOnMapvisted.containsKey(currentkey))
-    {   path.setPath(false);
-        return path;
-    }
-    
-
-    
-    Agent upperNode = new Agent("1",currentlocation.getQ()-1,currentlocation.getR(),currentlocation.getS()+1);
-    Agent lowerNode = new Agent("2",currentlocation.getQ()-1,currentlocation.getR()+1,currentlocation.getS());
-   
-
-    if(!isCellBlocked(upperNode))
-    {
-        String key =""+upperNode.getQ()+upperNode.getR()+upperNode.getS();
-        if(NodeOnMapvisted.containsKey(key))
-        {   return path;
-        }
-        else
-        {
-            path =checkUpper(upperNode);
-            return path;
-            
-        }
-        
-    }
-    
-      if(!isCellBlocked(lowerNode))
-        {   String key =""+lowerNode.getQ()+lowerNode.getR()+lowerNode.getS();
-            if(NodeOnMapvisted.containsKey(key))
-            {   return path;
-            }
-            else
-            {
-                path =checkUpper(lowerNode);
-                return path;
-                
-            }
-        }
-
-
-        NodeOnMapvisted.put(currentkey,true);
-
-    return path;
-
-
-
-
-
-}
-
-public Agent checkRigth(Agent currentlocation)
-{
-    String currentkey = ""+currentlocation.getQ()+currentlocation.getR()+currentlocation.getS();
-    Agent path =new Agent("1000",1000,1000,100);
-    if(currentlocation.getQ() >= boardSize || currentlocation.getR() >= boardSize || currentlocation.getS() >= boardSize || currentlocation.getQ() <= -boardSize || currentlocation.getR() <= -boardSize || currentlocation.getS() <= -boardSize)
-    {   
-        currentlocation.setPath(true);
-        return currentlocation;
-        
-    }
-    if(NodeOnMapvisted.containsKey(currentkey))
-    {   path.setPath(false);
-        return path;
-    }
-    
-
-    
-    Agent upperNode = new Agent("1",currentlocation.getQ()+1,currentlocation.getR()-1,currentlocation.getS());
-    Agent lowerNode = new Agent("2",currentlocation.getQ()+1,currentlocation.getR(),currentlocation.getS()-1);
-   
-
-    if(!isCellBlocked(upperNode))
-    {
-        String key =""+upperNode.getQ()+upperNode.getR()+upperNode.getS();
-        if(NodeOnMapvisted.containsKey(key))
-        {   return path;
-        }
-        else
-        {
-            path =checkUpper(upperNode);
-            return path;
-            
-        }
-        
-    }
-    
-      if(!isCellBlocked(lowerNode))
-        {   String key =""+lowerNode.getQ()+lowerNode.getR()+lowerNode.getS();
-            if(NodeOnMapvisted.containsKey(key))
-            {   return path;
-            }
-            else
-            {
-                path =checkUpper(lowerNode);
-                return path;
-                
-            }
-        }
-
-
-        NodeOnMapvisted.put(currentkey,true);
-
-    return path;
-
-
-
-
-
-}
 
 
 

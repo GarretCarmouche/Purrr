@@ -2,6 +2,8 @@ import "./App.css";
 import HexagonalGrid from "./Components/HexagonalGrid";
 import StartUp from "./Components/StartUpScreen";
 import GameOver from "./Components/GameOver";
+import PlayerWon from "./Components/PlayerWon";
+import PlayerLost from "./Components/PlayerLost";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 /*
@@ -17,6 +19,8 @@ function App() {
         <Route path="/startup" element={<StartUp />} />
         <Route path="/grid" element={<HexagonalGrid />} />
         <Route path="/GameOver" element={<GameOver />} />
+        <Route path="/PlayerWon" element={<PlayerWon />} />
+        <Route path="/PlayerLost" element={<PlayerLost />} />
       </Routes>
     </BrowserRouter>
   );

@@ -84,10 +84,19 @@ const HexagonalGrid = () => {
   PRECONDITION: The user has blocked a tile
   */
   const handleCatMove = async () => {
+    let escapable = await dispatch(pathAvailable()).unwrap();
+    console.log(escapable);
+    if(!escapable){
+      console.log("Player Won")
+      navigate("/PlayerWon")
+    }
     let val = await dispatch(getCatRequest()).unwrap();
+    if(Math.abs(val.q)>size||Math.abs(val.r)>size||Math.abs(val.s)>size){
+      console.log("Player Lost")
+      navigate("/PlayerLost")
+    }
     dispatch(changeCat(val));
-    dispatch(pathAvailable());
-   
+     
   };
   const navigate = useNavigate();
    const handleSubmitClick = () => {
@@ -148,7 +157,7 @@ const HexagonalGrid = () => {
       </HexGrid>
       <div id ="ResetButton" className="Reset">
           <button type="button" id="submitBTN" onClick={handleSubmitClick}>
-            Rest
+            Reset
           </button>
         </div>
     </>
