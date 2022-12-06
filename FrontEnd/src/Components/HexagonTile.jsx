@@ -60,7 +60,12 @@ const HexagonTile = ({ q, r, s, difficulty, firstRun }) => {
     )
   );
 
-
+  /*
+NAME: handleCatLastMove
+PARAMATERS: None
+PURPOSE: This function will call the redux store to get the last location the cat was at and change its color to yellow
+PRECONDITION: The cat agent must have moved position
+*/
   const handleCatLastMove = async () => {
     let val = await dispatch(getCatRequestOnly()).unwrap();
     dispatch(changeYello(val));

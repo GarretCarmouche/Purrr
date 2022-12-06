@@ -39,6 +39,7 @@ NAME: setSize
 PARAMATERS: size, integer
 PURPOSE: This function returns a size for the tiles depending on the size of the board
 PRECONDITION: The size of the board has been selected by the user
+RETURN: New size of x and y
 */
 const setSize = (size) => {
   return {x: 48/size, y: 48/size};
@@ -79,7 +80,7 @@ const HexagonalGrid = () => {
 
   /*
   NAME: handleCatMove
-  PARAMATERS: none
+  PARAMATERS: None
   PURPOSE: This function dispatches an action to our redux store that requests the cats location
   PRECONDITION: The user has blocked a tile
   */
@@ -90,6 +91,18 @@ const HexagonalGrid = () => {
    console.log(x);
   };
   const navigate = useNavigate();
+
+
+
+
+
+
+  /*
+  NAME: handlesSubmitClick
+  PARAMATERS: None
+  PURPOSE: This function dispatches an action to our redux store that requests to restart the game state
+  PRECONDITION: The game must be running in order to reset its state
+  */
    const handleSubmitClick = () => {
 
     dispatch(reset())
